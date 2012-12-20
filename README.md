@@ -7,24 +7,30 @@ Is only supposed with ruby 1.9.2+
 
 crate a gem with a path:
 
-    plugins/<prefix>/<type>/<name>.rb
+```ruby
+plugins/<prefix>/<type>/<name>.rb
+```
 
 with a class inside:
 
-    <prefix>::<type>::<name>
+```ruby
+<prefix>::<type>::<name>
+```
 
 where `<type>` can be nested
 
 example `plugins/rvm2/cli/echo.rb`:
 
-    class Rvm2::Cli::Echo
-      def self.question? command
-        command == "echo"
-      end
-      def answer param
-        puts param
-      end
-    end
+```ruby
+class Rvm2::Cli::Echo
+  def self.question? command
+    command == "echo"
+  end
+  def answer param
+    puts param
+  end
+end
+```
 
 where question and answer are user defined methods
 
@@ -32,10 +38,12 @@ where question and answer are user defined methods
 
 Example:
 
-    require 'pluginator'
+```ruby
+require 'pluginator'
 
-    rvm2plugins = Pluginator.new("rvm2")
-    plugin = rvm2plugins["cli"].detect{ |plugin|
-      plugin.question?('echo')
-    }
-    plugin.new.answer("Hello world")
+rvm2plugins = Pluginator.new("rvm2")
+plugin = rvm2plugins["cli"].detect{ |plugin|
+  plugin.question?('echo')
+}
+plugin.new.answer("Hello world")
+```
