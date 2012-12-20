@@ -32,7 +32,7 @@ class Rvm2::Cli::Echo
 end
 ```
 
-where question and answer are user defined methods
+where `question?` and `answer` are user defined methods
 
 ## Loading plugins
 
@@ -42,7 +42,7 @@ Example:
 require 'pluginator'
 
 rvm2plugins = Pluginator.new("rvm2")
-plugin = rvm2plugins["cli"].detect{ |plugin|
+plugin = rvm2plugins["cli"].first{ |plugin|
   plugin.question?('echo')
 }
 plugin.new.answer("Hello world")
