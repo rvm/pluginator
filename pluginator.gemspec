@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.version = "0.9.0"
   s.files = `git ls-files`.split("\n")
   s.required_ruby_version = ">= 1.9.2"
+  s.add_development_dependency("simplecov")
   s.add_development_dependency("rake")
   s.add_development_dependency("minitest")
   # s.add_development_dependency("smf-gem")
