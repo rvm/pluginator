@@ -45,6 +45,15 @@ class Pluginator
     classes
   end
 
+  def register_plugin_class type, klass
+    type = type.to_s
+    name = class2name(klass)
+    @plugins[type] ||= {}
+    if @plugins[type][name].nil?
+      @plugins[type][name] = klass
+    end
+  end
+
 private
 
   def detect
@@ -79,4 +88,7 @@ private
     klass
   end
 
+  def class2name klass
+    klass.gsub(/([A-Z])/){|x| "_#{x.downcase}"}.gsub(/(^_|::_)/,"/")[1..-1]
+  end
 end
