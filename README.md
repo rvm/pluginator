@@ -87,7 +87,7 @@ plugin = rvm2plugins["hooks/after_install"].each{ |plugin|
 
 ## Example 3 - plugin handler
 
-`lib/plugins/foo/bar/out.rb:
+`lib/plugins/foo/bar/out.rb`:
 
 ```ruby
 class Foo::Bar::Out < Foo::Bar::Abstract
@@ -97,7 +97,7 @@ class Foo::Bar::Out < Foo::Bar::Abstract
 end
 ```
 
-`lib/plugins/foo/bar/err.rb:
+`lib/plugins/foo/bar/err.rb`:
 
 ```ruby
 class Foo::Bar::Err < Foo::Bar::Abstract
@@ -107,7 +107,7 @@ class Foo::Bar::Err < Foo::Bar::Abstract
 end
 ```
 
-`lib/foo/bar.rb`
+`lib/foo/bar.rb`:
 
 ```ruby
 require 'pluginator/plugin_handler'
