@@ -84,3 +84,46 @@ plugin = rvm2plugins["hooks/after_install"].each{ |plugin|
   plugin.execute(name, path)
 }
 ```
+
+## Example 3 - plugin handler
+
+`lib/plugins/foo/bar/out.rb:
+
+```ruby
+class Foo::Bar::Out < Foo::Bar::Abstract
+  def show(*args)
+    puts "OUTPUT: #{args*", "}"
+  end
+end
+```
+
+`lib/plugins/foo/bar/err.rb:
+
+```ruby
+class Foo::Bar::Err < Foo::Bar::Abstract
+  def show(*args)
+    $stderr.puts "ERROR: #{args*", "}"
+  end
+end
+```
+
+`lib/foo/bar.rb`
+
+```ruby
+require 'pluginator/plugin_handler'
+
+class Foo
+  class Bar < Pluginator::PluginHandler
+    def self.show(type, *args)
+      first!(type).show(*args)
+    end
+  end
+end
+```
+
+And using is as easy:
+
+```ruby
+Foo::Bar.show(:out, "goes to stdout") => OUTPUT: goes to stdout
+Foo::Bar.show(:err, "goes to stderr") => ERROR: goes to stderr
+```
