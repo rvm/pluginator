@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.email = ["mpapis@gmail.com"]
   s.authors = ["Michal Papis"]
   s.name = "pluginator"
-  s.version = "0.9.2"
+  s.version = "0.9.3"
   s.files = `git ls-files`.split("\n")
   s.required_ruby_version = ">= 1.9.2"
   s.add_development_dependency("simplecov")
