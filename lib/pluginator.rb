@@ -49,7 +49,6 @@ private
 
   def detect
     Gem.find_files("plugins/#{@plugins_name}/*/*.rb").each do |file_name|
-# $stderr.puts "parsing #{file_name}"
       path, name, type = file_name.match(/.*\/(plugins\/(#{@plugins_name}\/(.*)\/[^\/]*)\.rb)$/)[1..3]
       load_plugin path, file_name
       register_plugin type, name
@@ -66,7 +65,6 @@ private
     type = type.to_s
     @plugins[type] ||= {}
     if @plugins[type][name].nil?
-# $stderr.puts "loading #{name}"
       @plugins[type][name] = name2class(name)
     end
   end
