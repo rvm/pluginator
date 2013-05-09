@@ -1,0 +1,14 @@
+language: ruby
+rvm:
+  - 1.9.3
+  - 2.0.0
+  - jruby-19mode
+  - rbx-19mode
+notifications:
+  irc:
+    channels:
+      - "irc.freenode.org#rvm-test"
+  email:
+    recipients:
+      - mpapis@gmail.com
+    on_failure: change

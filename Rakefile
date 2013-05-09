@@ -1,4 +1,9 @@
 require "rake/testtask"
+
 task :default => [:test]
-task :spec => :test
-Rake::TestTask.new { |t| t.verbose, t.pattern = true, "test/**/test_*.rb" }
+
+Rake::TestTask.new do |t|
+  t.verbose = true
+  t.libs.push("demo")
+  t.pattern = "test/**/*_test.rb"
+end
