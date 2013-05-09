@@ -1,5 +1,9 @@
 # Pluginator
 
+[![Code Climate](https://codeclimate.com/github/rvm/pluginator.png)](https://codeclimate.com/github/rvm/pluginator)
+[![Build Status](https://travis-ci.org/rvm/pluginator.png?branch=master)](https://travis-ci.org/rvm/pluginator)
+[![Dependency Status](https://gemnasium.com/rvm/pluginator.png)](https://gemnasium.com/rvm/pluginator)
+
 Gem plugin system management, detects plugins using `Gem.find_file`.
 Is only supposed with ruby 1.9.3+
 
