@@ -8,8 +8,8 @@ module Pluginator
     end
 
     # group => pattern
-    def file_name_pattern(group)
-      "plugins/#{group}/**/*.rb"
+    def file_name_pattern(group, type=nil)
+      "plugins/#{group}/#{type || "**"}/*.rb"
     end
 
     # full_name => class

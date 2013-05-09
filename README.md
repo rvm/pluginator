@@ -35,6 +35,14 @@ type_plugins = rvm2plugins["<type>"]
 types = rvm2plugins.types
 ```
 
+## Loading plugins of single type
+
+```ruby
+rvm2plugins = Pluginator::Autodetect.new("<group>", "<type>")
+type_plugins = rvm2plugins["<type>"]
+types = rvm2plugins.types
+```
+
 ## Examples
 
 ### Example 1 - task plugins

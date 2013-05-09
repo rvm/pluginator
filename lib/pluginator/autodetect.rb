@@ -4,8 +4,9 @@ require_relative "name_converter"
 module Pluginator
   class Autodetect < Group
 
-    def initialize(group)
+    def initialize(group, type=nil)
       super(group)
+      @force_type = type
       load_files(find_files)
     end
 
@@ -22,7 +23,7 @@ module Pluginator
     end
 
     def find_files
-      Gem.find_files(file_name_pattern(@group))
+      Gem.find_files(file_name_pattern(@group, @force_type))
     end
 
     def load_plugin(path)

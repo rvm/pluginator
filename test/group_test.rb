@@ -16,6 +16,7 @@ describe Pluginator::Group do
       @group.types.must_include("type1")
       @group.types.wont_include("type2")
     end
+
     it "adds plugin" do
       @group.register_plugin("type1", "test1")
       @group["type1"].must_include("test1")
