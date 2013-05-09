@@ -40,7 +40,7 @@ types = rvm2plugins.types
 ```ruby
 rvm2plugins = Pluginator::Autodetect.new("<group>", "<type>")
 type_plugins = rvm2plugins["<type>"]
-types = rvm2plugins.types
+rvm2plugins.types => ["<type>"]
 ```
 
 ## Examples
