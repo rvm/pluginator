@@ -4,14 +4,14 @@ require_relative "name_converter"
 module Pluginator
   class Autodetect < Group
 
-    include NameConverter
-
     def initialize(group)
       super(group)
       load_files(find_files)
     end
 
   private
+
+    include NameConverter
 
     def load_files(file_names)
       file_names.each do |file_name|

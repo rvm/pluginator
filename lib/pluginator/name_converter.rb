@@ -1,5 +1,6 @@
 module Pluginator
   module NameConverter
+  private
 
     # file_name, group => [ path, full_name, type ]
     def split_file_name(file_name, group)

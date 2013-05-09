@@ -65,4 +65,11 @@ describe Pluginator::Autodetect do
     pluginator["math"].detect{|plugin| plugin.type == "decrease" }.action(5).must_equal(4)
   end
 
+  it "hides methods" do
+    pluginator = Pluginator::Autodetect.new("pluginator")
+    pluginator.public_methods.must_include(:register_plugin)
+    pluginator.public_methods.wont_include(:load_plugins)
+    pluginator.public_methods.wont_include(:split_file_name)
+  end
+
 end
