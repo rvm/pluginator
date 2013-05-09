@@ -1,8 +1,8 @@
 class Pluginator::Math::Decrease
-  def type
+  def self.type
     "decrease"
   end
-  def action(number)
+  def self.action(number)
     number - 1
   end
 end

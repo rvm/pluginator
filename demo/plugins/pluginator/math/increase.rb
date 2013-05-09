@@ -1,8 +1,8 @@
 class Pluginator::Math::Increase
-  def type
+  def self.type
     "increase"
   end
-  def action(number)
+  def self.action(number)
     number + 1
   end
 end

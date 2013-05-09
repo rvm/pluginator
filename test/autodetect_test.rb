@@ -58,4 +58,11 @@ describe Pluginator::Autodetect do
     plugins.must_include("Pluginator::Math::Decrease")
     plugins.wont_include("Pluginator::Math::Add")
   end
+
+  it "makes plugins work" do
+    pluginator = Pluginator::Autodetect.new("pluginator")
+    pluginator["math"].detect{|plugin| plugin.type == "increase" }.action(2).must_equal(3)
+    pluginator["math"].detect{|plugin| plugin.type == "decrease" }.action(5).must_equal(4)
+  end
+
 end
