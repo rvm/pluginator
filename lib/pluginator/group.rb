@@ -3,7 +3,7 @@ module Pluginator
     attr_reader :group
 
     def initialize(group)
-      setup(group)
+      setup_group(group)
     end
 
     def [](type)
@@ -22,7 +22,7 @@ module Pluginator
 
   private
 
-    def setup(group)
+    def setup_group(group)
       @plugins = {}
       @group = group
     end

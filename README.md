@@ -5,7 +5,7 @@
 [![Dependency Status](https://gemnasium.com/rvm/pluginator.png)](https://gemnasium.com/rvm/pluginator)
 
 Gem plugin system management, detects plugins using `Gem.find_file`.
-Is only supposed with ruby 1.9.3+
+Is only supposed with ruby 2.0.0+ (requires keyword arguments)
 
 Pluginator tries to stay out of your way, you do not have to include or inherit anything.
 Pluginator only finds and groups plugins, rest is up to you,
@@ -30,7 +30,7 @@ where `<type>` can be nested
 ## Loading plugins
 
 ```ruby
-rvm2plugins = Pluginator::Autodetect.new("<group>")
+rvm2plugins = Pluginator.find("<group>")
 type_plugins = rvm2plugins["<type>"]
 types = rvm2plugins.types
 ```
@@ -38,7 +38,7 @@ types = rvm2plugins.types
 ## Loading plugins of single type
 
 ```ruby
-rvm2plugins = Pluginator::Autodetect.new("<group>", "<type>")
+rvm2plugins = Pluginator.find("<group>", "<type>")
 type_plugins = rvm2plugins["<type>"]
 rvm2plugins.types => ["<type>"]
 ```
@@ -67,10 +67,19 @@ Now the plugin can be used:
 ```ruby
 require 'pluginator'
 
-rvm2plugins = Pluginator::Autodetect.new("rvm2")
+rvm2plugins = Pluginator.find("rvm2")
 plugin = rvm2plugins["cli"].first{ |plugin|
   plugin.question?('echo')
 }
+plugin.new.answer("Hello world")
+```
+
+Or using extensions:
+
+```ruby
+require 'pluginator'
+
+plugin = Pluginator.find("rvm2", extends: %i{first_ask}).first_ask("cli", &:question?, 'echo')
 plugin.new.answer("Hello world")
 ```
 
@@ -91,8 +100,7 @@ and using hooks:
 ```ruby
 require 'pluginator'
 
-rvm2plugins = Pluginator::Autodetect.new("rvm2")
-plugin = rvm2plugins["hooks/after_install"].each{ |plugin|
+Pluginator.find("rvm2", type: "hooks/after_install").type.each{ |plugin|
   plugin.execute(name, path)
 }
 ```

@@ -1,4 +1,4 @@
-class Pluginator::Math::Decrease
+class Something::Math::Decrease
   def self.type
     "decrease"
   end
