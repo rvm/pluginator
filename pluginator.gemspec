@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 1.9.3"
   s.add_development_dependency("rake")
   s.add_development_dependency("minitest")
+  s.add_development_dependency("simplecov")
   # s.add_development_dependency("smf-gem")
   s.homepage = "https://github.com/rvm/pluginator"
   s.summary = "Rubygems plugin system using Gem.find_files."

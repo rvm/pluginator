@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'test_helper'
 require 'pluginator/extendable_autodetect'
 
 describe Pluginator::ExtendableAutodetect do

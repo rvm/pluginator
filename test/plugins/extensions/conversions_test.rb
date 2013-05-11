@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'test_helper'
 require 'plugins/pluginator/extensions/conversions'
 
 class ConversionsTester

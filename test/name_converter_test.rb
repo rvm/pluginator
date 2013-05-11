@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'test_helper'
 require 'pluginator/name_converter'
 
 class Converter

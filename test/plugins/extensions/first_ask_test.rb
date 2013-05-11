@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'test_helper'
 require 'plugins/pluginator/extensions/first_ask'
 require 'plugins/something/stats/max'
 
@@ -23,6 +23,10 @@ describe Pluginator::Extensions::FirstAsk do
     @tester.first_ask("stats", "handles?", "max").must_equal( Something::Stats::Max )
   end
 
+  it "finds proper plugin" do
+    @tester.first_ask("stats", "handles?", "max").action.must_equal( 42 )
+  end
+
   it "finds existing plugin - no exception" do
     @tester.first_ask!("stats", "handles?", "max").must_equal( Something::Stats::Max )
   end
@@ -31,9 +35,14 @@ describe Pluginator::Extensions::FirstAsk do
     @tester.first_ask("stats", "handles?", "min").must_equal( nil )
   end
 
-  it "finds existing plugin" do
+  it "does not find missing plugin - exception plugin" do
     lambda {
       @tester.first_ask!("stats", "handles?", "min")
     }.must_raise(Pluginator::MissingPlugin)
+  end
+  it "does not find missing plugin - exception type" do
+    lambda {
+      @tester.first_ask!("stats2", "handles?", "max")
+    }.must_raise(Pluginator::MissingType)
   end
 end
