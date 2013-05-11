@@ -35,12 +35,42 @@ type_plugins = rvm2plugins["<type>"]
 types = rvm2plugins.types
 ```
 
-## Loading plugins of single type
+## Usage
 
 ```ruby
-rvm2plugins = Pluginator.find("<group>", "<type>")
-type_plugins = rvm2plugins["<type>"]
-rvm2plugins.types => ["<type>"]
+Pluginator.find("<group>") => Pluginator object
+plugins = Pluginator.find("<group>", type: "<type>", extends: %i{<extensions>})
+plugins["<type>"] => Array of plugins
+plugins.type      => Array of plugins for type defined with `type: "<type>"`
+plugins.types     => Array of types
+```
+
+- `"<group>"` - Load plugins for given group.
+- `type: "<type>"` - Load plugins only of given type, makes `type` method accessible.
+- `extends: %i{<extensions>}` - Extend pluginator with given extensions.
+
+## Extensions
+
+Pluginator comes with few handful extensions.
+
+### First ask
+
+Call a method on plugin and return first one that returns `true`.
+
+```ruby
+plugins = Pluginator.find("<group>", extends: %i{first_ask})
+plugins.first_ask( "<type>", "method_to_call", *params) => plugin or nil
+plugins.first_ask!("<type>", "method_to_call", *params) => plugin or exception PluginatorError
+```
+
+### Matching
+
+Map array of names to available plugins.
+
+```ruby
+plugins = Pluginator.find("<group>", extends: %i{matching})
+plugins.matching( "<type>", [<array_of_names>]) => [plugins] # nil for missing ones
+plugins.matching!("<type>", [<array_of_names>]) => [plugins] or exception PluginatorError
 ```
 
 ## Examples

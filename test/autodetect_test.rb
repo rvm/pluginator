@@ -53,7 +53,7 @@ describe Pluginator::Autodetect do
     end
 
     it "finds files group and existing type" do
-      @pluginator.instance_variable_set(:@force_type, "math")
+      @pluginator.send(:force_type, "math")
       @pluginator.type.must_equal( @pluginator["math"] )
     end
 
@@ -95,8 +95,15 @@ describe Pluginator::Autodetect do
   it "hides methods" do
     pluginator = Pluginator::Autodetect.new("something")
     pluginator.public_methods.must_include(:register_plugin)
+    pluginator.public_methods.wont_include(:type)
     pluginator.public_methods.wont_include(:load_plugins)
     pluginator.public_methods.wont_include(:split_file_name)
+  end
+
+  it "defines type method dynamically" do
+    Pluginator::Autodetect.new("something").public_methods.wont_include(:type)
+    Pluginator::Autodetect.new("something", type: 'math').public_methods.must_include(:type)
+    Pluginator::Autodetect.new("something").public_methods.wont_include(:type)
   end
 
 end

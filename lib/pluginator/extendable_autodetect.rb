@@ -30,7 +30,7 @@ module Pluginator
     end
 
     def extensions_matching(extends)
-      pluginator_plugins.filter!("extensions", flatten_and_stringify(extends))
+      pluginator_plugins.matching!("extensions", flatten_and_stringify(extends))
     end
 
   end

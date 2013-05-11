@@ -6,13 +6,13 @@ module Pluginator::Extensions
     include PluginsMap
     include Conversions
 
-    def filter(type, list)
+    def matching(type, list)
       list.map do |plugin|
         (plugins_map(type) || {})[string2class(plugin)]
       end
     end
 
-    def filter!(type, list)
+    def matching!(type, list)
       @plugins[type] or raise Pluginator::MissingType.new(type, @plugins.types)
       list.map do |plugin|
         plugin = string2class(plugin)

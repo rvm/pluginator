@@ -17,20 +17,20 @@ describe Pluginator::Extensions::Matching do
   end
 
   it "finds existing plugin" do
-    @tester.filter("extensions", ["plugins_map"]).must_equal( [Pluginator::Extensions::PluginsMap] )
+    @tester.matching("extensions", ["plugins_map"]).must_equal( [Pluginator::Extensions::PluginsMap] )
   end
 
   it "finds existing plugin - no exception" do
-    @tester.filter!("extensions", ["plugins_map"]).must_equal( [Pluginator::Extensions::PluginsMap] )
+    @tester.matching!("extensions", ["plugins_map"]).must_equal( [Pluginator::Extensions::PluginsMap] )
   end
 
   it "does not find missing plugin - no exception" do
-    @tester.filter("extensions", ["plugins_map2"]).must_equal( [nil] )
+    @tester.matching("extensions", ["plugins_map2"]).must_equal( [nil] )
   end
 
   it "finds existing plugin" do
     lambda {
-      @tester.filter!("extensions", ["plugins_map2"])
+      @tester.matching!("extensions", ["plugins_map2"])
     }.must_raise(Pluginator::MissingPlugin)
   end
 end

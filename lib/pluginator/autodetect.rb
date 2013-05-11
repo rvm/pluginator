@@ -10,17 +10,22 @@ module Pluginator
       setup_autodetect(type)
     end
 
-    def type
-      @plugins[@force_type]
-    end
-
   private
 
     include NameConverter
 
     def setup_autodetect(type)
-      @force_type = type
+      force_type(type)
       load_files(find_files)
+    end
+
+    def force_type(type)
+      @force_type = type
+      unless @force_type.nil?
+        define_singleton_method(:type) do
+          @plugins[@force_type]
+        end
+      end
     end
 
     def find_files
