@@ -13,7 +13,7 @@ module Pluginator::Extensions
     end
 
     def matching!(type, list)
-      @plugins[type] or raise Pluginator::MissingType.new(type, @plugins.types)
+      @plugins[type] or raise Pluginator::MissingType.new(type, @plugins.keys)
       list.map do |plugin|
         plugin = string2class(plugin)
         plugins_map(type)[plugin] or
