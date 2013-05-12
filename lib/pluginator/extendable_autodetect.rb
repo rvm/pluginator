@@ -7,8 +7,8 @@ module Pluginator
     # Extend instance with extensions if given.
     #
     # @param group [String] name of the plugins group
-    # @param type [String] optional name of the plugin type
-    # @param extends optional list of extension to extend into pluginator instance
+    # @option type [String] name of type to load
+    # @option extend [Array of/or Symbol] list of extension to extend into pluginator instance
     def initialize(group, type: nil, extends: [])
       super(group, type: type)
       extend_plugins(extends)

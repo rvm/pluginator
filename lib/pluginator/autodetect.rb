@@ -8,7 +8,7 @@ module Pluginator
     # Automatically load plugins for given group (and type)
     #
     # @param group [String] name of the plugins group
-    # @param type [String] optional name of the plugin type
+    # @option type [String] name of the plugin type
     def initialize(group, type: nil)
       super(group)
       setup_autodetect(type)

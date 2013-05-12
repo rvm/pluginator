@@ -1,9 +1,10 @@
 # Pluginator
 
-[![Gem Version](https://badge.fury.io/rb/pluginator.png)](http://badge.fury.io/rb/pluginator)
+[![Gem Version](https://badge.fury.io/rb/pluginator.png)](http://rubygems.org/gems/pluginator)
 [![Code Climate](https://codeclimate.com/github/rvm/pluginator.png)](https://codeclimate.com/github/rvm/pluginator)
 [![Build Status](https://travis-ci.org/rvm/pluginator.png?branch=master)](https://travis-ci.org/rvm/pluginator)
 [![Dependency Status](https://gemnasium.com/rvm/pluginator.png)](https://gemnasium.com/rvm/pluginator)
+[Documentation](http://rubydoc.info/gems/pluginator/frames)
 
 Gem plugin system management, detects plugins using `Gem.find_file`.
 Is only supposed with ruby 2.0.0+ (requires keyword arguments)

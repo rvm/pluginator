@@ -8,7 +8,7 @@ module Pluginator::Extensions
     #
     # @param type [String] name of type to search for plugins
     # @param method_name [Symbol] name of the method to execute
-    # @param *params [Array] params to pass to the called method
+    # @param params [Array] params to pass to the called method
     # @return The first plugin that method call returns true
     def first_ask(type, method_name, *params)
       @plugins[type] or return nil
