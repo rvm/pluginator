@@ -1,3 +1,4 @@
 module Pluginator
-  VERSION = "0.11.3"
+  # Version of Pluginator
+  VERSION = "0.11.4"
 end

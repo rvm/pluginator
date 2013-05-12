@@ -3,11 +3,20 @@ require_relative "autodetect"
 module Pluginator
   class ExtendableAutodetect < Autodetect
 
+    # Automatically load plugins for given group (and type)
+    # Extend instance with extensions if given.
+    #
+    # @param group [String] name of the plugins group
+    # @param type [String] optional name of the plugin type
+    # @param extends optional list of extension to extend into pluginator instance
     def initialize(group, type: nil, extends: [])
       super(group, type: type)
       extend_plugins(extends)
     end
 
+    # Extend pluginator instance with given extensions
+    #
+    # @param extends list of extension to extend into pluginator instance
     def extend_plugins(extends)
       extensions_matching(extends).each do |plugin|
         extend plugin
