@@ -5,4 +5,7 @@ SimpleCov.start do
   add_filter "/demo/"
 end
 
+require 'coveralls'
+Coveralls.wear!
+
 require 'minitest/autorun'
