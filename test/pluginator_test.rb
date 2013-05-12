@@ -1,8 +1,8 @@
 require 'test_helper'
 require 'pluginator'
 
-describe Pluginator do
-  it "loads plugins automatically for group" do
+class PluginatorTest < MiniTest::Unit::TestCase
+  def test_loads_plugins_automatically_for_group
     pluginator = Pluginator.find("something")
     pluginator.types.must_include('stats')
     pluginator.types.must_include('math')
@@ -14,13 +14,13 @@ describe Pluginator do
     plugins.wont_include("Something::Math::Add")
   end
 
-  it "loads plugins automatically for group/type" do
+  def test_loads_plugins_automatically_for_group_type
     pluginator = Pluginator.find("something", type: "stats")
     pluginator.types.must_include('stats')
     pluginator.types.size.must_equal(1)
   end
 
-  it "loads existing extensions - symbol" do
+  def test_loads_existing_extensions_symbol
     pluginator = Pluginator.find("something", extends: :conversions)
     pluginator.public_methods.must_include(:class2string)
     pluginator.public_methods.must_include(:string2class)
