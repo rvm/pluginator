@@ -8,7 +8,7 @@ module Pluginator
   # @param type [String] optional name of type to load
   # @param extends optional list of extension to extend into pluginator instance
   # @return instance of Pluginator
-  def self.group(group, type: nil, extends: [])
+  def self.find(group, type: nil, extends: [])
     Pluginator::ExtendableAutodetect.new(group, type: type, extends: extends)
   end
 end

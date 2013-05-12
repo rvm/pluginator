@@ -7,7 +7,7 @@ module Something
 end
 
 def demo_file(path)
-  File.expand_path(File.join("..", "..", "demo", path), __FILE__)
+  File.expand_path(File.join("..", "..", "..", "demo", path), __FILE__)
 end
 
 def demo_files(*paths)
