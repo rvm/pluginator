@@ -2,6 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/pluginator.png)](http://rubygems.org/gems/pluginator)
 [![Code Climate](https://codeclimate.com/github/rvm/pluginator.png)](https://codeclimate.com/github/rvm/pluginator)
+[![Coverage Status](https://coveralls.io/repos/rvm/pluginator/badge.png?branch=master)](https://coveralls.io/r/rvm/pluginator?branch=master)
 [![Build Status](https://travis-ci.org/rvm/pluginator.png?branch=master)](https://travis-ci.org/rvm/pluginator)
 [![Dependency Status](https://gemnasium.com/rvm/pluginator.png)](https://gemnasium.com/rvm/pluginator)
 [Documentation](http://rubydoc.info/gems/pluginator/frames)
