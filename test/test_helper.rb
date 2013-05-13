@@ -13,5 +13,5 @@ end
 
 Coveralls.noisy = true
 
-require 'minitest/unit'
 require 'minitest/autorun'
+require 'minitest/unit'
