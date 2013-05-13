@@ -11,7 +11,7 @@ SimpleCov.start do
   add_filter "/demo/"
 end
 
-Coveralls.noisy = true
+Coveralls.noisy = true unless ENV['CI']
 
 require 'minitest/autorun'
 require 'minitest/unit'
