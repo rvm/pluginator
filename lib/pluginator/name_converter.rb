@@ -1,4 +1,5 @@
 module Pluginator
+  # a helper for handling name / file / class conversions
   module NameConverter
   private
 

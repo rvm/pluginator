@@ -2,7 +2,9 @@ require_relative "plugins_map"
 require_relative "conversions"
 
 module Pluginator::Extensions
+  # Extension to find first plugin that class matches the string
   module FirstClass
+
     include PluginsMap
     include Conversions
 

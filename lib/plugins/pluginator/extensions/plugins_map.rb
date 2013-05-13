@@ -1,4 +1,5 @@
 module Pluginator::Extensions
+  # extend Pluginator with map of plugins: name => klass
   module PluginsMap
     # provide extra map of plugins with symbolized names as keys
     #

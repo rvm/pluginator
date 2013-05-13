@@ -1,7 +1,9 @@
 require_relative "plugins_map"
 
 module Pluginator::Extensions
+  # Extension to find first plugin that answers the question with true
   module FirstAsk
+
     include PluginsMap
 
     # Call a method on plugin and return first one that returns `true`.

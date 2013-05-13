@@ -3,6 +3,8 @@ require_relative "group"
 require_relative "name_converter"
 
 module Pluginator
+  # Add autodetection capabilities to Group
+  # @see Group
   class Autodetect < Group
 
     # Automatically load plugins for given group (and type)

@@ -1,4 +1,5 @@
 module Pluginator
+  # Initial data for pluginator, includes group name and plugins
   class Group
     # Group name used for plugins
     attr_reader :group

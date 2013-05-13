@@ -1,6 +1,15 @@
 require_relative "autodetect"
 
 module Pluginator
+  # Container for all Pluginator extensions,
+  # they are loaded in `ExtendableAutodetect`
+  # @see ExtendableAutodetect#extend_plugins
+  module Extensions
+  end
+
+  # Add extendability to Atudetect / Group
+  # @see Autodetect
+  # @see Group
   class ExtendableAutodetect < Autodetect
 
     # Automatically load plugins for given group (and type)

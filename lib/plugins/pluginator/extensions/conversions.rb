@@ -1,4 +1,5 @@
 module Pluginator::Extensions
+  # a placeholder for methods to convert strings
   module Conversions
 
     # converts class name to a file name

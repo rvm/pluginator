@@ -1,6 +1,7 @@
 require_relative "pluginator/extendable_autodetect"
 require_relative "pluginator/version"
 
+# A simple plugin system based on Gem.find_files
 module Pluginator
   # Find plugins for the given group
   #

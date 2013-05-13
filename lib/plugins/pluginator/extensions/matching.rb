@@ -2,6 +2,7 @@ require_relative "plugins_map"
 require_relative "conversions"
 
 module Pluginator::Extensions
+  # Extension to select plugins that class name matches the list of string
   module Matching
     include PluginsMap
     include Conversions
