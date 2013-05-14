@@ -56,6 +56,15 @@ plugins.types     => Array of types
 
 Pluginator comes with few handful extensions.
 
+### Class exist
+
+Check if plugin with given class name exist.
+
+```ruby
+plugins = Pluginator.find("<group>", extends: %i{class_exist})
+plugins.class_exist?( "<type>", "<name>") => true or false
+```
+
 ### First ask
 
 Call a method on plugin and return first one that returns `true`.
