@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/rvm/pluginator/badge.png?branch=master)](https://coveralls.io/r/rvm/pluginator?branch=master)
 [![Build Status](https://travis-ci.org/rvm/pluginator.png?branch=master)](https://travis-ci.org/rvm/pluginator)
 [![Dependency Status](https://gemnasium.com/rvm/pluginator.png)](https://gemnasium.com/rvm/pluginator)
-[Documentation](http://rubydoc.info/gems/pluginator/frames)
+[![Documentation](http://b.repl.ca/v1/yard-docs-blue.png)](http://rubydoc.info/gems/pluginator/frames)
 
 Gem plugin system management, detects plugins using `Gem.find_file`.
 Is only supposed with ruby 1.9.3+ (some tests fail on 1.9.2)
