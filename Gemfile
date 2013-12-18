@@ -9,6 +9,7 @@ group :development do
   gem "redcarpet", :platforms => [:ruby]
 
   # rubinius support
-  gem "rubysl-json", :platforms => [:rbx]
+  gem "rubysl-json",      :platforms => [:rbx]
+  gem "rubysl-mutex_m",   :platforms => [:rbx]
   gem "rubysl-singleton", :platforms => [:rbx]
 end
