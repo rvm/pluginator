@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.version = Pluginator::VERSION
   s.files = `git ls-files`.split("\n")
   s.required_ruby_version = ">= 1.9.2"
-  %w{rake minitest simplecov coveralls redcarpet}.each do |name|
+  %w{rake minitest simplecov coveralls}.each do |name|
     s.add_development_dependency(name)
   end
   # s.add_development_dependency("smf-gem")
