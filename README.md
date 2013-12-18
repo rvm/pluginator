@@ -16,7 +16,7 @@ you decide what methods to define and how to find them.
 
 ## Defining plugins
 
-crate a gem with a path:
+create a gem with a path:
 
 ```ruby
 plugins/<group>/<type>/<name>.rb
@@ -58,7 +58,7 @@ Pluginator comes with few handful extensions.
 
 ### Class exist
 
-Check if plugin with given class name exist.
+Check if plugin with given class name exists.
 
 ```ruby
 plugins = Pluginator.find("<group>", extends: %i{class_exist})
@@ -77,7 +77,7 @@ plugins.first_ask!("<type>", "method_to_call", *params) => plugin or exception P
 
 ### First class
 
-Find first plugin that clas matches the given name.
+Find first plugin that class matches the given name.
 
 ```ruby
 plugins = Pluginator.find("<group>", extends: %i{first_class})
