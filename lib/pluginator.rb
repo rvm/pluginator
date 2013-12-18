@@ -9,7 +9,7 @@ module Pluginator
   # @option type [String] name of type to load
   # @option extend [Array of/or Symbol] list of extension to extend into pluginator instance
   # @return instance of Pluginator
-  def self.find(group, type: nil, extends: [])
-    Pluginator::ExtendableAutodetect.new(group, type: type, extends: extends)
+  def self.find(group, options = {})
+    Pluginator::ExtendableAutodetect.new(group, options)
   end
 end

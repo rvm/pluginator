@@ -17,10 +17,10 @@ module Pluginator
     #
     # @param group [String] name of the plugins group
     # @option type [String] name of type to load
-    # @option extend [Array of/or Symbol] list of extension to extend into pluginator instance
-    def initialize(group, type: nil, extends: [])
-      super(group, type: type)
-      extend_plugins(extends)
+    # @option extends [Array of/or Symbol] list of extension to extend into pluginator instance
+    def initialize(group, options = {})
+      super(group, options)
+      extend_plugins(options[:extends]||[])
     end
 
     # Extend pluginator instance with given extensions

@@ -8,7 +8,7 @@
 [Documentation](http://rubydoc.info/gems/pluginator/frames)
 
 Gem plugin system management, detects plugins using `Gem.find_file`.
-Is only supposed with ruby 2.0.0+ (requires keyword arguments)
+Is only supposed with ruby 1.9.3+ (some tests fail on 1.9.2)
 
 Pluginator tries to stay out of your way, you do not have to include or inherit anything.
 Pluginator only finds and groups plugins, rest is up to you,

@@ -11,9 +11,9 @@ module Pluginator
     #
     # @param group [String] name of the plugins group
     # @option type [String] name of the plugin type
-    def initialize(group, type: nil)
+    def initialize(group, options = {})
       super(group)
-      setup_autodetect(type)
+      setup_autodetect(options[:type])
     end
 
   private

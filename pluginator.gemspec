@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.name = "pluginator"
   s.version = Pluginator::VERSION
   s.files = `git ls-files`.split("\n")
-  s.required_ruby_version = ">= 2.0.0"
+  s.required_ruby_version = ">= 1.9.2"
   %w{rake minitest simplecov coveralls redcarpet}.each do |name|
     s.add_development_dependency(name)
   end

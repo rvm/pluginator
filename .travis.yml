@@ -1,6 +1,13 @@
 language: ruby
 rvm:
+  - 1.8.7
+  - 1.9.2
+  - 1.9.3
   - 2.0.0
+  - 2.1.0
+  - ruby-head
+  - rbx
+  - jruby
 notifications:
   irc:
     channels:
@@ -9,3 +16,8 @@ notifications:
     recipients:
       - mpapis@gmail.com
     on_failure: change
+matrix:
+  allow_failures:
+    - rvm: 1.8.7
+    - rvm: 1.9.2
+  fast_finish: true
