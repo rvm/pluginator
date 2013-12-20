@@ -9,10 +9,9 @@ Gem::Specification.new do |s|
   s.name = "pluginator"
   s.version = Pluginator::VERSION
   s.files = `git ls-files`.split("\n")
-  s.required_ruby_version = ">= 1.9.2"
-  %w{rake minitest simplecov coveralls}.each do |name|
-    s.add_development_dependency(name)
-  end
+  s.required_ruby_version = ">= 1.8.7"
+  s.add_development_dependency("rake")
+  s.add_development_dependency("minitest")
   # s.add_development_dependency("smf-gem")
   s.homepage = "https://github.com/rvm/pluginator"
   s.summary = "Rubygems plugin system using Gem.find_files."
