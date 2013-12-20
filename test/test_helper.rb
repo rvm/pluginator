@@ -13,5 +13,13 @@ end
 
 Coveralls.noisy = true unless ENV['CI']
 
+module Something
+  module Math; end
+  module Stats; end
+  module Nested
+    module Structure; end
+  end
+end
+
 require 'minitest/autorun'
 require 'minitest/unit'

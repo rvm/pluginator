@@ -2,10 +2,6 @@ require 'test_helper'
 require 'plugins/pluginator/extensions/first_ask'
 require 'plugins/something/stats/max'
 
-module Something
-  module Stats; end
-end
-
 class FirstAskTester
   attr_accessor :plugins
   include Pluginator::Extensions::FirstAsk

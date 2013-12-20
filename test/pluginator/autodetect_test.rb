@@ -1,11 +1,6 @@
 require 'test_helper'
 require 'pluginator/autodetect'
 
-module Something
-  module Math; end
-  module Stats; end
-end
-
 def demo_file(path)
   File.expand_path(File.join("..", "..", "..", "demo", path), __FILE__)
 end
@@ -17,7 +12,10 @@ end
 describe Pluginator::Autodetect do
   before do
     @math_files = demo_files("plugins/something/math/increase.rb", "plugins/something/math/decrease.rb")
-    @all_files = demo_files("plugins/something/math/increase.rb", "plugins/something/math/decrease.rb", "plugins/something/stats/max.rb")
+    @all_files = demo_files(
+      "plugins/something/math/increase.rb", "plugins/something/math/decrease.rb",
+      "plugins/something/nested/structure/test.rb", "plugins/something/stats/max.rb"
+    )
   end
 
   describe "separate" do
@@ -72,7 +70,7 @@ describe Pluginator::Autodetect do
     pluginator = Pluginator::Autodetect.new("something")
     pluginator.types.must_include('stats')
     pluginator.types.must_include('math')
-    pluginator.types.size.must_equal(2)
+    pluginator.types.size.must_equal(3)
     plugins = pluginator["math"].map(&:to_s)
     plugins.size.must_equal(2)
     plugins.must_include("Something::Math::Increase")

@@ -2,10 +2,6 @@ require 'test_helper'
 require 'plugins/pluginator/extensions/class_exist'
 require 'plugins/something/stats/max'
 
-module Something
-  module Stats; end
-end
-
 class ClassExistTester
   attr_accessor :plugins
   include Pluginator::Extensions::ClassExist

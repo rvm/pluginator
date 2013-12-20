@@ -6,7 +6,8 @@ class PluginatorTest < MiniTest::Unit::TestCase
     pluginator = Pluginator.find("something")
     pluginator.types.must_include('stats')
     pluginator.types.must_include('math')
-    pluginator.types.size.must_equal(2)
+    pluginator.types.must_include('nested/structure')
+    pluginator.types.size.must_equal(3)
     plugins = pluginator["math"].map(&:to_s)
     plugins.size.must_equal(2)
     plugins.must_include("Something::Math::Increase")
@@ -25,5 +26,13 @@ class PluginatorTest < MiniTest::Unit::TestCase
     pluginator.public_methods.must_include(:class2string)
     pluginator.public_methods.must_include(:string2class)
     pluginator.public_methods.wont_include(:plugins_map)
+  end
+
+  def test_loads_nested_plugins
+    pluginator = Pluginator.find("something")
+    pluginator.types.must_include('nested/structure')
+    plugins = pluginator["nested/structure"].map(&:to_s)
+    plugins.size.must_equal(1)
+    plugins.must_include("Something::Nested::Structure::Test")
   end
 end
