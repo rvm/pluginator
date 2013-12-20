@@ -16,16 +16,16 @@ class PluginatorTest < MiniTest::Unit::TestCase
   end
 
   def test_loads_plugins_automatically_for_group_type
-    pluginator = Pluginator.find("something", type: "stats")
+    pluginator = Pluginator.find("something", :type => "stats")
     pluginator.types.must_include('stats')
     pluginator.types.size.must_equal(1)
   end
 
   def test_loads_existing_extensions_symbol
-    pluginator = Pluginator.find("something", extends: :conversions)
-    pluginator.public_methods.must_include(:class2string)
-    pluginator.public_methods.must_include(:string2class)
-    pluginator.public_methods.wont_include(:plugins_map)
+    pluginator = Pluginator.find("something", :extends => :conversions)
+    pluginator.public_methods.map(&:to_sym).must_include(:class2string)
+    pluginator.public_methods.map(&:to_sym).must_include(:string2class)
+    pluginator.public_methods.map(&:to_sym).wont_include(:plugins_map)
   end
 
   def test_loads_nested_plugins

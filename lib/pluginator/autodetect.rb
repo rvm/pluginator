@@ -1,6 +1,6 @@
-require_relative "errors"
-require_relative "group"
-require_relative "name_converter"
+require "pluginator/errors"
+require "pluginator/group"
+require "pluginator/name_converter"
 
 module Pluginator
   # Add autodetection capabilities to Group
@@ -16,6 +16,10 @@ module Pluginator
       setup_autodetect(options[:type])
     end
 
+    def type
+      @plugins[@force_type] unless @force_type.nil?
+    end
+
   private
 
     include NameConverter
@@ -27,11 +31,6 @@ module Pluginator
 
     def force_type(type)
       @force_type = type
-      unless @force_type.nil?
-        define_singleton_method(:type) do
-          @plugins[@force_type]
-        end
-      end
     end
 
     def find_files

@@ -1,4 +1,4 @@
-require_relative "autodetect"
+require "pluginator/autodetect"
 
 module Pluginator
   # Container for all Pluginator extensions,

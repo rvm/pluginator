@@ -1,5 +1,5 @@
-require_relative "plugins_map"
-require_relative "conversions"
+require "plugins/pluginator/extensions/plugins_map"
+require "plugins/pluginator/extensions/conversions"
 
 module Pluginator::Extensions
   # Extension to check if plugin for given class name exist

@@ -1,5 +1,5 @@
-require_relative "pluginator/extendable_autodetect"
-require_relative "pluginator/version"
+require "pluginator/extendable_autodetect"
+require "pluginator/version"
 
 # A simple plugin system based on Gem.find_files
 module Pluginator

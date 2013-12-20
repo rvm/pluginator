@@ -1,4 +1,4 @@
-require_relative "plugins_map"
+require "plugins/pluginator/extensions/plugins_map"
 
 module Pluginator::Extensions
   # Extension to find first plugin that answers the question with true
@@ -15,8 +15,8 @@ module Pluginator::Extensions
     def first_ask(type, method_name, *params)
       @plugins[type] or return nil
       @plugins[type].detect do |plugin|
-        plugin.respond_to?(method_name.to_sym) &&
-        plugin.public_send(method_name.to_sym, *params)
+        plugin.public_methods.map(&:to_sym).include?(method_name.to_sym) &&
+        plugin.send(method_name.to_sym, *params)
       end
     end
 
@@ -25,8 +25,8 @@ module Pluginator::Extensions
     def first_ask!(type, method_name, *params)
       @plugins[type] or raise Pluginator::MissingType.new(type, @plugins.keys)
       @plugins[type].detect do |plugin|
-        plugin.respond_to?(method_name.to_sym) &&
-        plugin.public_send(method_name, *params)
+        plugin.public_methods.map(&:to_sym).include?(method_name.to_sym) &&
+        plugin.send(method_name, *params)
       end or
         raise Pluginator::MissingPlugin.new(type, "first_ask: #{method_name}", plugins_map(type).keys)
     end
