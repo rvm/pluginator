@@ -95,6 +95,34 @@ plugins.matching( "<type>", [<array_of_names>]) => [plugins] # nil for missing o
 plugins.matching!("<type>", [<array_of_names>]) => [plugins] or exception PluginatorError
 ```
 
+### Your own ones
+
+You can define your own extensions for `pluginator`, for example:
+
+```shell
+plugins/pluginator/extensions/first_one.rb
+```
+
+with:
+
+```ruby
+module Pluginator::Extensions
+  class FirstOne
+    def first_one(type)
+      @plugins[type].first
+    end
+  end
+end
+```
+
+And now you can use it:
+
+```ruby
+plugins = Pluginator.find("<group>", extends: %i{first_one})
+plugins.first_one("<type>") => first_plugin # nil when none
+```
+
+
 ## Exceptions
 
 - `PluginatorError` - base error for all Pluginator errors
