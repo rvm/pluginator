@@ -14,21 +14,29 @@ module Pluginator::Extensions
     # @return The first plugin that method call returns true
     def first_ask(type, method_name, *params)
       @plugins[type] or return nil
-      @plugins[type].detect do |plugin|
-        plugin.public_methods.map(&:to_sym).include?(method_name.to_sym) &&
-        plugin.send(method_name.to_sym, *params)
-      end
+      try_to_find(type, method_name, params)
     end
 
     # Call a method on plugin and return first one that returns `true`.
     # Behaves like `first_ask` but throws exceptions if can not find anything.
     def first_ask!(type, method_name, *params)
       @plugins[type] or raise Pluginator::MissingType.new(type, @plugins.keys)
+      try_to_find(type, method_name, params) or
+      raise Pluginator::MissingPlugin.new(type, "first_ask: #{method_name}", plugins_map(type).keys)
+    end
+
+  private
+
+    def try_to_find(type, method_name, params)
       @plugins[type].detect do |plugin|
-        plugin.public_methods.map(&:to_sym).include?(method_name.to_sym) &&
-        plugin.send(method_name, *params)
-      end or
-        raise Pluginator::MissingPlugin.new(type, "first_ask: #{method_name}", plugins_map(type).keys)
+        has_public_method?(plugin, method_name) &&
+        plugin.send(method_name.to_sym, *params)
+      end
+    end
+
+    # need to use this trick because of old rubies support
+    def has_public_method?(plugin, method_name)
+      plugin.public_methods.map(&:to_sym).include?(method_name.to_sym)
     end
 
   end
