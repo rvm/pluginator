@@ -12,5 +12,10 @@ module Pluginator::Extensions
       str.to_s.capitalize.gsub(/_(.)/){ $1.upcase }
     end
 
+    # gets class name last part
+    def class2name(klass)
+      klass.name.split('::').last
+    end
+
   end
 end
