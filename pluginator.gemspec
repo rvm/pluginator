@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.authors = ["Michal Papis"]
   s.name = "pluginator"
   s.version = Pluginator::VERSION
+  s.license = "MIT"
   s.files = `git ls-files`.split("\n")
   s.required_ruby_version = ">= 1.8.7"
   s.add_development_dependency("rake")
