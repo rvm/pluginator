@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+date: 2014-06-06
+
+- register only plugins that can be loaded from activated gems, fix #3
+
 ## 1.0.1
 date: 2013-12-25
 
