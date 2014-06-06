@@ -59,15 +59,30 @@ module Pluginator
     def load_files(file_names)
       file_names.each do |file_name|
         path, name, type = split_file_name(file_name, @group)
-        load_plugin path
+        load_plugin(path) and
         register_plugin(type, name2class(name))
       end
     end
 
     def load_plugin(path)
       gemspec = Gem::Specification.find_by_path(path)
-      gemspec.activate if gemspec && !gemspec.activated?
-      require path
+      if
+        gemspec
+      then
+        activated =
+        Gem::Specification.find do |spec|
+          spec.name == gemspec.name && spec.activated?
+        end
+        gemspec.activate if !gemspec.activated? && activated.nil?
+        if
+          activated.nil? || activated == gemspec
+        then
+          require path
+          true
+        else
+          nil
+        end
+      end
     end
 
   end
