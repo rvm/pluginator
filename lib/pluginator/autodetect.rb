@@ -64,24 +64,14 @@ module Pluginator
       end
     end
 
+    # @return [Boolean] true if the plugin file was required successfully, 
+    #  false if it failed to require.
     def load_plugin(path)
-      gemspec = Gem::Specification.find_by_path(path)
-      if
-        gemspec
-      then
-        activated =
-        Gem::Specification.find do |spec|
-          spec.name == gemspec.name && spec.activated?
-        end
-        gemspec.activate if !gemspec.activated? && activated.nil?
-        if
-          activated.nil? || activated == gemspec
-        then
-          require path
-          true
-        else
-          nil
-        end
+      begin
+        require path
+        return true
+      rescue ::LoadError
+        return false
       end
     end
 
