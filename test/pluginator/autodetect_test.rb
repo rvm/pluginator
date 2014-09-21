@@ -21,7 +21,7 @@ require 'test_helper'
 require 'pluginator/autodetect'
 
 def demo_file(path)
-  File.expand_path(File.join("..", "..", "..", "demo", path), __FILE__)
+  File.expand_path(File.join("../../gems/gems/fake-gem-name-a-1.0.0/lib", path), __FILE__)
 end
 
 def demo_files(*paths)

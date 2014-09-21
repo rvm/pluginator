@@ -19,6 +19,11 @@ You should have received a copy of the GNU Lesser General Public License
 along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
+# register our own path with gems
+# duplicate from Gemfile for non bundler
+Gem.path << File.expand_path("../gems", __FILE__)
+Gem.refresh
+
 if
   RUBY_VERSION == "2.0.0" # check Gemfile
 then

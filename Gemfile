@@ -29,3 +29,15 @@ group :development do
   gem "simplecov", :platforms => [:mri_20]
   gem "coveralls", :platforms => [:mri_20]
 end
+
+# when running tests in bundler
+if
+  [ $0, $* ].flatten.first{|e| e=~/rake/}
+then
+  # make sure test gems path is used
+  Gem.path << File.expand_path("../test/gems", __FILE__)
+  Gem.refresh
+
+  # and add test gems to bundler
+  gem "fake-gem-name-a"
+end
