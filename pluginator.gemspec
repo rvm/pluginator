@@ -32,9 +32,6 @@ Gem::Specification.new do |s|
   s.license = "LGPL v3"
   s.files = `git ls-files`.split("\n")
   s.required_ruby_version = ">= 1.8.7"
-  s.add_development_dependency("guard")
-  s.add_development_dependency("guard-minitest")
-  s.add_development_dependency("guard-yard")
   s.add_development_dependency("rake")
   s.add_development_dependency("minitest")
   # s.add_development_dependency("smf-gem")
