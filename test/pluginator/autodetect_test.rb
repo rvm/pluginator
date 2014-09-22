@@ -20,18 +20,29 @@ along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 require 'test_helper'
 require 'pluginator/autodetect'
 
-def demo_file(path)
-  File.expand_path(File.join("../../gems/gems/fake-gem-name-a-1.0.0/lib", path), __FILE__)
+def gem_file(path, options = {})
+  options.merge!({
+    :gem_name    => "fake-gem-name-a",
+    :gem_version => "1.0.0",
+  })
+  File.expand_path(
+    File.join(
+      "../../gems/gems/#{options[:gem_name]}-#{options[:gem_version]}/lib",
+      path
+    ),
+    __FILE__
+  )
 end
 
-def demo_files(*paths)
-  paths.flatten.map{|path| demo_file(path) }
+def gem_files(*paths)
+  options = paths.last.is_a?(::Hash) ? paths.pop : {}
+  paths.flatten.map{|path| gem_file(path, options) }
 end
 
 describe Pluginator::Autodetect do
   before do
-    @math_files = demo_files("plugins/something/math/increase.rb", "plugins/something/math/decrease.rb")
-    @all_files = demo_files(
+    @math_files = gem_files("plugins/something/math/increase.rb", "plugins/something/math/decrease.rb")
+    @all_files = gem_files(
       "plugins/something/math/increase.rb", "plugins/something/math/decrease.rb",
       "plugins/something/nested/structure/test.rb", "plugins/something/stats/max.rb"
     )
@@ -47,8 +58,8 @@ describe Pluginator::Autodetect do
       @pluginator.group.must_equal("something")
     end
 
-    it "has demo file" do
-      File.exists?(demo_file("plugins/something/math/increase.rb")).must_equal(true)
+    it "has gem file" do
+      File.exists?(gem_file("plugins/something/math/increase.rb")).must_equal(true)
     end
 
     it "loads plugin" do
