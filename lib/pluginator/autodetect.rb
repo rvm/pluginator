@@ -35,6 +35,7 @@ module Pluginator
       setup_autodetect(options[:type])
     end
 
+    # Return the forced type
     def type
       @plugins[@force_type] unless @force_type.nil?
     end
