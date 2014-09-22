@@ -33,9 +33,11 @@ group :development do
   gem "guard-yard",     :platforms => [:mri_20]
 end
 
+$stderr.puts "args: #{[ $0, $* ].flatten.inspect}"
 # when running tests in bundler
 if
-  [ $0, $* ].flatten.first{|e| e=~/rake/}
+  [ $0, $* ].flatten.find{|e| e=~/rake/} || # detect rake
+  $0 == "-e" # detect guard
 then
   # make sure test gems path is used
   Gem.path << File.expand_path("../test/gems", __FILE__)

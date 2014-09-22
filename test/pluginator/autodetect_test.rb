@@ -133,4 +133,18 @@ describe Pluginator::Autodetect do
     pluginator.type.must_equal(pluginator['math'])
   end
 
+  it :self do
+    pluginator = Pluginator::Autodetect.new("pluginator")
+    pluginator.types.must_include('extensions')
+    pluginator.types.size.must_equal(1)
+    pluginator["extensions"].map(&:to_s).sort.must_equal([
+      "Pluginator::Extensions::ClassExist",
+      "Pluginator::Extensions::Conversions",
+      "Pluginator::Extensions::FirstAsk",
+      "Pluginator::Extensions::FirstClass",
+      "Pluginator::Extensions::Matching",
+      "Pluginator::Extensions::PluginsMap"
+    ])
+  end
+
 end

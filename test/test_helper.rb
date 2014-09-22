@@ -23,9 +23,11 @@ along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 # duplicate from Gemfile for non bundler
 Gem.path << File.expand_path("../gems", __FILE__)
 Gem.refresh
+gem 'fake-gem-name-a'
 
 if
-  RUBY_VERSION == "2.0.0" # check Gemfile
+  RUBY_VERSION == "2.0.0" && # check Gemfile
+  $0 != "-e" # do not do that in guard
 then
   require "coveralls"
   require "simplecov"
@@ -50,5 +52,5 @@ module Something
   end
 end
 
-require 'minitest/autorun'
+require 'minitest/autorun' unless $0=="-e" # skip in guard
 require 'minitest/unit'
