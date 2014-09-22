@@ -19,9 +19,12 @@ You should have received a copy of the GNU Lesser General Public License
 along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
+require 'rubygems'
+require 'minitest'
+
 # fix lib in LOAD_PATH and load version for gems manipulation
-#lib = File.expand_path('../lib', __FILE__)
-#$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "pluginator/version"
 
 # remove old links in fake gem home
@@ -38,7 +41,8 @@ Gem.path << File.expand_path("../gems", __FILE__)
 Gem.refresh
 
 # make sure pluginator is available as gem for tests of pluginator plugins
-Gem::Specification.add_spec(Gem::Specification.load(File.expand_path("../gems/specifications/pluginator-#{Pluginator::VERSION}.gemspec", __FILE__)))
+#Gem::Specification.add_spec(Gem::Specification.load(File.expand_path("../gems/specifications/pluginator-#{Pluginator::VERSION}.gemspec", __FILE__)))
+gem 'pluginator'
 
 if
   RUBY_VERSION == "2.0.0" && # check Gemfile
