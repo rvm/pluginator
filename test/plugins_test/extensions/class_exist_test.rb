@@ -26,19 +26,20 @@ class ClassExistTester
   include Pluginator::Extensions::ClassExist
 end
 
-class Pluginator::Extensions::ClassExistTest < MiniTest::Unit::TestCase
-  def setup
-    @tester = ClassExistTester.new
-    @tester.plugins = { "stats" => [
+describe Pluginator::Extensions::ClassExist do
+  subject do
+    tester = ClassExistTester.new
+    tester.plugins = { "stats" => [
       Something::Stats::Max
     ] }
+    tester
   end
 
-  def test_plugin_exist
-    @tester.class_exist?("stats", "max").must_equal( true )
+  it "plugin exists" do
+    subject.class_exist?("stats", "max").must_equal( true )
   end
 
-  def test_plugin_missing
-    @tester.class_exist?("stats", "min").must_equal( false )
+  it "plugin missing" do
+    subject.class_exist?("stats", "min").must_equal( false )
   end
 end

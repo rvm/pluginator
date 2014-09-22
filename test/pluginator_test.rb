@@ -20,8 +20,8 @@ along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 require 'test_helper'
 require 'pluginator'
 
-class PluginatorTest < MiniTest::Unit::TestCase
-  def test_loads_plugins_automatically_for_group
+describe Pluginator do
+  it :test_loads_plugins_automatically_for_group do
     pluginator = Pluginator.find("something")
     pluginator.types.must_include('stats')
     pluginator.types.must_include('math')
@@ -34,20 +34,20 @@ class PluginatorTest < MiniTest::Unit::TestCase
     plugins.wont_include("Something::Math::Add")
   end
 
-  def test_loads_plugins_automatically_for_group_type
+  it :test_loads_plugins_automatically_for_group_type do
     pluginator = Pluginator.find("something", :type => "stats")
     pluginator.types.must_include('stats')
     pluginator.types.size.must_equal(1)
   end
 
-  def test_loads_existing_extensions_symbol
+  it :test_loads_existing_extensions_symbol do
     pluginator = Pluginator.find("something", :extends => :conversions)
     pluginator.public_methods.map(&:to_sym).must_include(:class2string)
     pluginator.public_methods.map(&:to_sym).must_include(:string2class)
     pluginator.public_methods.map(&:to_sym).wont_include(:plugins_map)
   end
 
-  def test_loads_nested_plugins
+  it :test_loads_nested_plugins do
     pluginator = Pluginator.find("something")
     pluginator.types.must_include('nested/structure')
     plugins = pluginator["nested/structure"].map(&:to_s)
