@@ -133,7 +133,7 @@ describe Pluginator::Autodetect do
     pluginator.type.must_equal(pluginator['math'])
   end
 
-  it :self do
+  it "loads self" do
     pluginator = Pluginator::Autodetect.new("pluginator")
     pluginator.types.must_include('extensions')
     pluginator.types.size.must_equal(1)
