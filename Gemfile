@@ -32,17 +32,3 @@ group :development do
   gem "guard-minitest", :platforms => [:mri_20]
   gem "guard-yard",     :platforms => [:mri_20]
 end
-
-# when running tests in bundler
-if
-  [ $0, $* ].flatten.find{|e| e=~/rake/} || # detect rake
-  $0 == "-e" # detect guard
-then
-  # make sure test gems path is used
-  Gem.path << File.expand_path("../test/gems", __FILE__)
-  Gem.refresh
-
-  # and add test gems to bundler
-  gem "fake-gem-name-a"
-  gem "fake-gem-name-latest"
-end
