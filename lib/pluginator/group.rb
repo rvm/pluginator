@@ -46,7 +46,7 @@ module Pluginator
     def register_plugin(type, klass)
       type = type.to_s
       @plugins[type] ||= []
-      @plugins[type].push(klass)
+      @plugins[type].push(klass) unless @plugins[type].include?(klass)
     end
 
   private

@@ -44,4 +44,5 @@ then
 
   # and add test gems to bundler
   gem "fake-gem-name-a"
+  gem "fake-gem-name-latest"
 end

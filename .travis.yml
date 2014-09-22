@@ -10,6 +10,8 @@ rvm:
   - rbx
 before_script:
   - 'if [[ "$TRAVIS_RUBY_VERSION" == rbx ]]; then gem update bundler; fi'
+script:
+  - NOEXEC_DISABLE=1 rake
 notifications:
   irc:
     channels:

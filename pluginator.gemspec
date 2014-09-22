@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # -*- encoding: utf-8 -*-
+# stub: PLUGINATOR ruby lib
 
 =begin
 Copyright 2013
@@ -22,7 +23,9 @@ You should have received a copy of the GNU Lesser General Public License
 along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require File.expand_path("../lib/pluginator/version.rb", __FILE__)
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "pluginator/version"
 
 Gem::Specification.new do |s|
   s.email = ["mpapis@gmail.com", "envygeeks@gmail.com", "mose@mose.com"]
