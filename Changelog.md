@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0
+date: 2014-09-24
+
+- improved detection of gems/plugins to load, based on #6
+
 ## 1.1.0
 date: 2014-06-06
 
