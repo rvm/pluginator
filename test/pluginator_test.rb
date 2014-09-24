@@ -89,5 +89,25 @@ describe Pluginator do
     pluginator.types.must_include('stats')
     pluginator.types.size.must_equal(1)
     pluginator["stats"].map(&:to_s).must_equal(["V1test::Stats::Max"])
+    pluginator["stats"].first.action.must_equal(42)
+  end
+
+  it "loads_latest_version_of_plugin_from_two_gems_v2" do
+    all_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" }
+    all_gems.must_include("fake-gem-name-v2a-1.0.0")
+    all_gems.must_include("fake-gem-name-v2b-1.0.0")
+    active_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" if s.activated? }.compact
+    active_gems.wont_include("fake-gem-name-v2a-1.0.0")
+
+    pluginator = Pluginator.find("v2test")
+
+    active_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" if s.activated? }.compact
+    active_gems.must_include("fake-gem-name-v2a-1.0.0")
+    active_gems.wont_include("fake-gem-name-v2b-1.0.0")
+
+    pluginator.types.must_include('stats')
+    pluginator.types.size.must_equal(1)
+    pluginator["stats"].map(&:to_s).must_equal(["V2test::Stats::Max"])
+    pluginator["stats"].first.action.must_equal(41)
   end
 end

@@ -77,7 +77,9 @@ end
 module V1test
   module Stats; end
 end
-
+module V2test
+  module Stats; end
+end
 
 require 'minitest/autorun' unless $0=="-e" # skip in guard
 require 'minitest/unit'
