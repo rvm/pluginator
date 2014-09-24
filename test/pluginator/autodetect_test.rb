@@ -63,7 +63,7 @@ describe Pluginator::Autodetect do
     end
 
     it "loads plugin" do
-      @pluginator.send(:load_plugin, "plugins/something/math/increase.rb")
+      @pluginator.send(:load_plugin, "plugins/something/math/increase.rb").must_equal(true)
     end
 
     it "finds files existing group" do
@@ -116,6 +116,7 @@ describe Pluginator::Autodetect do
 
   it "makes group plugins work" do
     pluginator = Pluginator::Autodetect.new("something")
+    pluginator.types.must_include('math')
     pluginator["math"].detect{|plugin| plugin.type == "increase" }.action(2).must_equal(3)
     pluginator["math"].detect{|plugin| plugin.type == "decrease" }.action(5).must_equal(4)
   end

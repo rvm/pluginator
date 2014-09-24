@@ -74,6 +74,9 @@ module Latest
   module Version1; end
   module Version2; end
 end
+module V1test
+  module Stats; end
+end
 
 
 require 'minitest/autorun' unless $0=="-e" # skip in guard

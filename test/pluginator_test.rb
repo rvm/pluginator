@@ -50,9 +50,7 @@ describe Pluginator do
   it "loads_nested_plugins" do
     pluginator = Pluginator.find("something")
     pluginator.types.must_include('nested/structure')
-    plugins = pluginator["nested/structure"].map(&:to_s)
-    plugins.size.must_equal(1)
-    plugins.must_include("Something::Nested::Structure::Test")
+    pluginator["nested/structure"].map(&:to_s).must_equal(["Something::Nested::Structure::Test"])
   end
 
   it "loads_only_plugins_from_latest_version_of_gem" do
@@ -60,6 +58,7 @@ describe Pluginator do
     all_gems.must_include("fake-gem-name-latest-1.0.0")
     all_gems.must_include("fake-gem-name-latest-2.0.0")
     active_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" if s.activated? }.compact
+    active_gems.wont_include("fake-gem-name-latest-1.0.0")
     active_gems.wont_include("fake-gem-name-latest-2.0.0")
 
     pluginator = Pluginator.find("latest")
@@ -71,8 +70,24 @@ describe Pluginator do
     pluginator.types.must_include('version2')
     pluginator.types.wont_include('version1')
     pluginator.types.size.must_equal(1)
-    plugins = pluginator["version2"].map(&:to_s)
-    plugins.size.must_equal(1)
-    plugins.must_include("Latest::Version2::Max")
+    pluginator["version2"].map(&:to_s).must_equal(["Latest::Version2::Max"])
+  end
+
+  it "loads_latest_version_of_plugin_from_two_gems_v1" do
+    all_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" }
+    all_gems.must_include("fake-gem-name-v1a-1.0.0")
+    all_gems.must_include("fake-gem-name-v1b-1.0.0")
+    active_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" if s.activated? }.compact
+    active_gems.wont_include("fake-gem-name-v1a-1.0.0")
+
+    pluginator = Pluginator.find("v1test")
+
+    active_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" if s.activated? }.compact
+    active_gems.wont_include("fake-gem-name-v1a-1.0.0")
+    active_gems.must_include("fake-gem-name-v1b-1.0.0")
+
+    pluginator.types.must_include('stats')
+    pluginator.types.size.must_equal(1)
+    pluginator["stats"].map(&:to_s).must_equal(["V1test::Stats::Max"])
   end
 end

@@ -58,32 +58,74 @@ module Pluginator
     end
 
     def load_files(file_names)
-      file_names.each do |file_name|
-        path, name, type = split_file_name(file_name, @group)
+      unique_gemspec_paths(file_names).each do |gemspec, path, name, type|
+        gemspec.activate
         load_plugin(path) and
         register_plugin(type, name2class(name))
       end
     end
 
-    def load_plugin(path)
-      gemspec = Gem::Specification.find_by_path(path)
-      if
-        gemspec
-      then
-        activated =
-        Gem::Specification.find do |spec|
-          spec.name == gemspec.name && spec.activated?
-        end
-        gemspec.activate if !gemspec.activated? && activated.nil?
-        if
-          activated.nil? || activated == gemspec
-        then
-          require path
-          true
-        else
-          nil
-        end
+    def unique_gemspec_paths(file_names)
+      all = gemspec_and_paths(file_names)
+      gemspecs = all.map(&:first)
+      selected =
+      gemspecs.group_by{|spec| spec.name}.map(&:last).map do |specs|
+        activated = specs.find(&:activated?)
+        activated || specs.sort.last
       end
+      all.map do |gemspec, path, name, type|
+        found = selected.find{|spec| spec == gemspec}
+        [found, path, name, type] if found
+      end.compact
+    end
+
+    def gemspec_and_paths(file_names)
+      unique_parsed_paths(file_names).map do |path, name, type|
+        gemspec = gemspec_for_path(path)
+        [gemspec, path, name, type] if gemspec
+      end.compact
+    end
+
+    def unique_parsed_paths(file_names)
+      file_names.map do |file_name|
+        split_file_name(file_name, @group)
+      end.sort.uniq
+    end
+
+    def gemspec_for_path(path)
+      gemspecs = Gem::Specification._all.reject do |spec|
+        Dir.glob( File.join( spec.lib_dirs_glob, path ) ).empty?
+      end
+      case gemspecs.size
+      when 0
+        nil
+      when 1
+        gemspecs.first
+      else
+        find_latest_plugin_version(gemspecs, path)
+      end
+    end
+
+    def find_latest_plugin_version(gemspecs, path)
+      gemspecs  = gemspecs.sort_by{|spec| [((spec.metadata||{})[path]||"0").to_i, spec.name, spec.version]}
+      last      = gemspecs.last
+      return last if gemspecs.size == 1
+
+      activated = gemspecs.find(&:activated?)
+      best      = Gem::Specification.find_by_path(path)
+      if
+        (activated.nil? || last == activated) &&
+        !best.activated?
+      then
+        last
+      else
+        best
+      end
+    end
+
+    def load_plugin(path)
+      require path
+      true
     end
 
   end
