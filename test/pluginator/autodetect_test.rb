@@ -94,6 +94,25 @@ describe Pluginator::Autodetect do
       plugins.must_include("Something::Math::Decrease")
       plugins.wont_include("Something::Math::Substract")
     end
+
+    it "finds unique gems for paths" do
+      @pluginator.send(:gemspec_and_paths, @math_files).map{ |gemspec, path, name, type|
+        [gemspec.name, gemspec.version.to_s, path, name, type]
+      }.must_equal([
+        ["fake-gem-name-a", "1.0.0", "plugins/something/math/decrease.rb", "something/math/decrease", "math"],
+        ["fake-gem-name-a", "1.0.0", "plugins/something/math/increase.rb", "something/math/increase", "math"],
+      ])
+    end
+
+    it "finds unique gems for paths" do
+      @pluginator.send(:unique_gemspec_paths, @math_files).map{ |gemspec, path, name, type|
+        [gemspec.name, gemspec.version.to_s, path, name, type]
+      }.must_equal([
+        ["fake-gem-name-a", "1.0.0", "plugins/something/math/decrease.rb", "something/math/decrease", "math"],
+        ["fake-gem-name-a", "1.0.0", "plugins/something/math/increase.rb", "something/math/increase", "math"],
+      ])
+    end
+
   end
 
   it "loads plugins automatically for group" do
