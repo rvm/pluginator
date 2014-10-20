@@ -163,11 +163,11 @@ where `question?` and `answer` are user defined methods
 Now the plugin can be used:
 
 ```ruby
-require 'pluginator'
+require "pluginator"
 
 rvm2plugins = Pluginator.find("rvm2")
 plugin = rvm2plugins["cli"].first{ |plugin|
-  plugin.question?('echo')
+  plugin.question?("echo")
 }
 plugin.new.answer("Hello world")
 ```
@@ -175,9 +175,9 @@ plugin.new.answer("Hello world")
 Or using extensions:
 
 ```ruby
-require 'pluginator'
+require "pluginator"
 
-plugin = Pluginator.find("rvm2", extends: %i{first_ask}).first_ask("cli", &:question?, 'echo')
+plugin = Pluginator.find("rvm2", extends: %i{first_ask}).first_ask("cli", &:question?, "echo")
 plugin.new.answer("Hello world")
 ```
 
@@ -188,7 +188,7 @@ plugin.new.answer("Hello world")
 ```ruby
 class Rvm2::Hooks::AfterInstall::Show
   def self.execute name, path
-    puts "Ruby '#{name}' was installed in '#{path}'."
+    puts "Ruby #{name.inspect} was installed in #{path.inspect}."
   end
 end
 ```
@@ -196,7 +196,7 @@ end
 and using hooks:
 
 ```ruby
-require 'pluginator'
+require "pluginator"
 
 Pluginator.find("rvm2", type: "hooks/after_install").type.each{ |plugin|
   plugin.execute(name, path)

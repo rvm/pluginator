@@ -17,8 +17,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require 'test_helper'
-require 'pluginator/name_converter'
+require "test_helper"
+require "pluginator/name_converter"
 
 class Converter
   extend Pluginator::NameConverter

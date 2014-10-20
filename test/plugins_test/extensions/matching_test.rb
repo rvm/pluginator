@@ -17,8 +17,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require 'test_helper'
-require 'plugins/pluginator/extensions/matching'
+require "test_helper"
+require "plugins/pluginator/extensions/matching"
 
 class MatchingTester
   attr_accessor :plugins

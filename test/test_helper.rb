@@ -19,11 +19,11 @@ You should have received a copy of the GNU Lesser General Public License
 along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require 'rubygems'
-require 'minitest'
+require "rubygems"
+require "minitest"
 
 # fix lib in LOAD_PATH and load version for gems manipulation
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "pluginator/version"
 
@@ -42,7 +42,7 @@ Gem.refresh
 
 # make sure pluginator is available as gem for tests of pluginator plugins
 #Gem::Specification.add_spec(Gem::Specification.load(File.expand_path("../gems/specifications/pluginator-#{Pluginator::VERSION}.gemspec", __FILE__)))
-gem 'pluginator'
+gem "pluginator"
 
 if
   RUBY_VERSION == "2.0.0" && # check Gemfile
@@ -60,7 +60,7 @@ then
     add_filter "/test/"
   end
 
-  Coveralls.noisy = true unless ENV['CI']
+  Coveralls.noisy = true unless ENV["CI"]
 end
 
 module Something
@@ -81,5 +81,5 @@ module V2test
   module Stats; end
 end
 
-require 'minitest/autorun' unless $0=="-e" # skip in guard
-require 'minitest/unit'
+require "minitest/autorun" unless $0=="-e" # skip in guard
+require "minitest/unit"

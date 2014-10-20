@@ -17,15 +17,15 @@ You should have received a copy of the GNU Lesser General Public License
 along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require 'test_helper'
-require 'pluginator'
+require "test_helper"
+require "pluginator"
 
 describe Pluginator do
   it "loads_plugins_automatically_for_group" do
     pluginator = Pluginator.find("something")
-    pluginator.types.must_include('stats')
-    pluginator.types.must_include('math')
-    pluginator.types.must_include('nested/structure')
+    pluginator.types.must_include("stats")
+    pluginator.types.must_include("math")
+    pluginator.types.must_include("nested/structure")
     pluginator.types.size.must_equal(3)
     plugins = pluginator["math"].map(&:to_s)
     plugins.size.must_equal(2)
@@ -36,7 +36,7 @@ describe Pluginator do
 
   it "loads_plugins_automatically_for_group_type" do
     pluginator = Pluginator.find("something", :type => "stats")
-    pluginator.types.must_include('stats')
+    pluginator.types.must_include("stats")
     pluginator.types.size.must_equal(1)
   end
 
@@ -49,7 +49,7 @@ describe Pluginator do
 
   it "loads_nested_plugins" do
     pluginator = Pluginator.find("something")
-    pluginator.types.must_include('nested/structure')
+    pluginator.types.must_include("nested/structure")
     pluginator["nested/structure"].map(&:to_s).must_equal(["Something::Nested::Structure::Test"])
   end
 
@@ -67,8 +67,8 @@ describe Pluginator do
     active_gems.wont_include("fake-gem-name-latest-1.0.0")
     active_gems.must_include("fake-gem-name-latest-2.0.0")
 
-    pluginator.types.must_include('version2')
-    pluginator.types.wont_include('version1')
+    pluginator.types.must_include("version2")
+    pluginator.types.wont_include("version1")
     pluginator.types.size.must_equal(1)
     pluginator["version2"].map(&:to_s).must_equal(["Latest::Version2::Max"])
   end
@@ -86,7 +86,7 @@ describe Pluginator do
     active_gems.wont_include("fake-gem-name-v1a-1.0.0")
     active_gems.must_include("fake-gem-name-v1b-1.0.0")
 
-    pluginator.types.must_include('stats')
+    pluginator.types.must_include("stats")
     pluginator.types.size.must_equal(1)
     pluginator["stats"].map(&:to_s).must_equal(["V1test::Stats::Max"])
     pluginator["stats"].first.action.must_equal(42)
@@ -105,7 +105,7 @@ describe Pluginator do
     active_gems.must_include("fake-gem-name-v2a-1.0.0")
     active_gems.wont_include("fake-gem-name-v2b-1.0.0")
 
-    pluginator.types.must_include('stats')
+    pluginator.types.must_include("stats")
     pluginator.types.size.must_equal(1)
     pluginator["stats"].map(&:to_s).must_equal(["V2test::Stats::Max"])
     pluginator["stats"].first.action.must_equal(41)

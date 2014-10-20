@@ -23,7 +23,7 @@ module Pluginator
   class PluginatorError < RuntimeError
   private
     def list_to_s(list)
-      list.map{|e| "'#{e}'" }.join(", ")
+      list.map{|e| e.to_s.inspect }.join(", ")
     end
   end
 
@@ -33,7 +33,7 @@ module Pluginator
     # @param name [String] name of the loaded plugin
     # @param list [Array]  list of available plugins
     def initialize(type, name, list)
-      super("Can not find plugin '#{name}' in #{list_to_s(list)} for type '#{type}'.")
+      super("Can not find plugin #{name.inspect} in #{list_to_s(list)} for type #{type.inspect}.")
     end
   end
 
@@ -42,7 +42,7 @@ module Pluginator
     # @param type [String] type of the loaded plugin
     # @param list [Array]  list of available types
     def initialize(type, list)
-      super("Can not find type '#{type}' in #{list_to_s(list)}.")
+      super("Can not find type #{type.inspect} in #{list_to_s(list)}.")
     end
   end
 end

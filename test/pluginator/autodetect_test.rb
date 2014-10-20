@@ -17,8 +17,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require 'test_helper'
-require 'pluginator/autodetect'
+require "test_helper"
+require "pluginator/autodetect"
 
 def gem_file(path, options = {})
   options.merge!({
@@ -87,7 +87,7 @@ describe Pluginator::Autodetect do
 
     it "loads files" do
       @pluginator.send(:load_files, @math_files)
-      @pluginator.types.must_include('math')
+      @pluginator.types.must_include("math")
       plugins = @pluginator["math"].map(&:to_s)
       plugins.size.must_equal(2)
       plugins.must_include("Something::Math::Increase")
@@ -98,8 +98,8 @@ describe Pluginator::Autodetect do
 
   it "loads plugins automatically for group" do
     pluginator = Pluginator::Autodetect.new("something")
-    pluginator.types.must_include('stats')
-    pluginator.types.must_include('math')
+    pluginator.types.must_include("stats")
+    pluginator.types.must_include("math")
     pluginator.types.size.must_equal(3)
     plugins = pluginator["math"].map(&:to_s)
     plugins.size.must_equal(2)
@@ -110,13 +110,13 @@ describe Pluginator::Autodetect do
 
   it "loads plugins automatically for group/type" do
     pluginator = Pluginator::Autodetect.new("something", :type => "stats")
-    pluginator.types.must_include('stats')
+    pluginator.types.must_include("stats")
     pluginator.types.size.must_equal(1)
   end
 
   it "makes group plugins work" do
     pluginator = Pluginator::Autodetect.new("something")
-    pluginator.types.must_include('math')
+    pluginator.types.must_include("math")
     pluginator["math"].detect{|plugin| plugin.type == "increase" }.action(2).must_equal(3)
     pluginator["math"].detect{|plugin| plugin.type == "decrease" }.action(5).must_equal(4)
   end
@@ -130,13 +130,13 @@ describe Pluginator::Autodetect do
   end
 
   it "defines type method dynamically" do
-    pluginator = Pluginator::Autodetect.new("something", :type => 'math')
-    pluginator.type.must_equal(pluginator['math'])
+    pluginator = Pluginator::Autodetect.new("something", :type => "math")
+    pluginator.type.must_equal(pluginator["math"])
   end
 
   it "loads self" do
     pluginator = Pluginator::Autodetect.new("pluginator")
-    pluginator.types.must_include('extensions')
+    pluginator.types.must_include("extensions")
     pluginator.types.size.must_equal(1)
     pluginator["extensions"].map(&:to_s).sort.must_equal([
       "Pluginator::Extensions::ClassExist",

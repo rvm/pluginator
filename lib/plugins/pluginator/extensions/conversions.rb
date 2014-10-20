@@ -33,7 +33,7 @@ module Pluginator::Extensions
 
     # gets class name last part
     def class2name(klass)
-      klass.name.split('::').last
+      klass.name.split("::").last
     end
 
   end

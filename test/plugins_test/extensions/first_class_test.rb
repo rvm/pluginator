@@ -17,9 +17,9 @@ You should have received a copy of the GNU Lesser General Public License
 along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require 'test_helper'
-require 'plugins/pluginator/extensions/first_class'
-require 'plugins/something/stats/max'
+require "test_helper"
+require "plugins/pluginator/extensions/first_class"
+require "plugins/something/stats/max"
 
 class FirstClassTester
   attr_accessor :plugins
