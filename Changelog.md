@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0
+date: 2014-10-20
+
+- simplified detection of gems/plugins to load, improved tests
+
 ## 1.2.0
 date: 2014-09-24
 
