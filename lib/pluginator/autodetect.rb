@@ -28,8 +28,9 @@ module Pluginator
 
     # Automatically load plugins for given group (and type)
     #
-    # @param group [String] name of the plugins group
-    # @option type [String] name of the plugin type
+    # @param group   [String] name of the plugins group
+    # @param options [Hash]   options to pass to creating Pluginator instance
+    # @option type   [String] name of the plugin type
     def initialize(group, options = {})
       super(group)
       setup_autodetect(options[:type])

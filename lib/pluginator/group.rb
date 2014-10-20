@@ -23,6 +23,7 @@ module Pluginator
     # Group name used for plugins
     attr_reader :group
 
+    # sets up new instance and initial configuration
     # @param group [String] name of the plugins group
     def initialize(group)
       setup_group(group)

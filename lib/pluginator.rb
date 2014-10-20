@@ -24,10 +24,11 @@ require "pluginator/version"
 module Pluginator
   # Find plugins for the given group
   #
-  # @param group [String] name of plugins group
-  # @option type [String] name of type to load
-  # @option extend [Array of/or Symbol] list of extension to extend into pluginator instance
-  # @return instance of Pluginator
+  # @param group   [String] name of plugins group
+  # @param options [Hash]   options to pass to creating Pluginator instance
+  # @option type   [String] name of type to load
+  # @option extend [Array<Symbol>|Symbol] list of extension to extend into pluginator instance
+  # @return [Pluginator::ExtendableAutodetect] instance of Pluginator
   def self.find(group, options = {})
     Pluginator::ExtendableAutodetect.new(group, options)
   end
