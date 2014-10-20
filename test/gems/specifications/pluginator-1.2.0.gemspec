@@ -1,1 +1,0 @@
-/home/mpapis/projects/rvm/pluginator/pluginator.gemspec

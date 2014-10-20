@@ -19,5 +19,5 @@ along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 
 module Pluginator
   # Version of Pluginator
-  VERSION = "1.2.0"
+  VERSION = "1.3.0"
 end
