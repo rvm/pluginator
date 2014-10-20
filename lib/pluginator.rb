@@ -1,5 +1,5 @@
 =begin
-Copyright 2013 Michal Papis <mpapis@gmail.com>
+Copyright 2013,2014 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
