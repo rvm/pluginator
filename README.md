@@ -1,11 +1,13 @@
 # Pluginator
 
 [![Gem Version](https://badge.fury.io/rb/pluginator.png)](http://rubygems.org/gems/pluginator)
+[![Build Status](https://travis-ci.org/rvm/pluginator.png?branch=master)](https://travis-ci.org/rvm/pluginator)
 [![Code Climate](https://codeclimate.com/github/rvm/pluginator.png)](https://codeclimate.com/github/rvm/pluginator)
 [![Coverage Status](https://coveralls.io/repos/rvm/pluginator/badge.png?branch=master)](https://coveralls.io/r/rvm/pluginator?branch=master)
-[![Build Status](https://travis-ci.org/rvm/pluginator.png?branch=master)](https://travis-ci.org/rvm/pluginator)
 [![Dependency Status](https://gemnasium.com/rvm/pluginator.png)](https://gemnasium.com/rvm/pluginator)
-[![Documentation](http://b.repl.ca/v1/yard-docs-blue.png)](http://rubydoc.info/gems/pluginator/frames)
+[![Inline docs](http://inch-ci.org/github/rvm/pluginator.png)](http://inch-ci.org/github/rvm/pluginator)
+[![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://rubydoc.info/github/rvm/pluginator/master/frames)
+[![Github Code](http://img.shields.io/badge/github-code-blue.svg)](https://github.com/rvm/pluginator)
 
 Gem plugin system management, detects plugins using `Gem.find_file`.
 Is only supposed with ruby 1.9.3+ (some tests fail on 1.9.2)
