@@ -76,13 +76,13 @@ module Pluginator
     # filter active / latest gem versions
     def active_or_latest_gems_matching(specifications)
       specifications.group_by(&:name).map do |name, specifications|
-        active_or_latest_gemspec(specifications)
+        active_or_latest_gemspec(specifications.sort)
       end
     end
 
     # find active or latest gem in given set
     def active_or_latest_gemspec(specifications)
-      specifications.find(&:activated) || specifications.sort.last
+      specifications.find(&:activated) || specifications.last
     end
 
     def gemspec_and_paths(file_names)
@@ -113,27 +113,17 @@ module Pluginator
     end
 
     def find_latest_plugin_version(gemspecs, path)
-      gemspecs  = gemspecs_sorted_by_metadata_and_version(gemspecs, path)
-      activated = gemspecs.find(&:activated?)
-      last      = gemspecs.last
-      best      = Gem::Specification.find_by_path(path)
-      pick_best(activated, best, last)
+      active_or_latest_gemspec(gemspecs_sorted_by_metadata_and_version(gemspecs, path))
     end
 
     def gemspecs_sorted_by_metadata_and_version(gemspecs, path)
       gemspecs.sort_by do |spec|
-        [((spec.metadata||{})[path]||"0").to_i, spec.name, spec.version]
+        [calculate_plugin_version(spec.metadata, path), spec.name, spec.version]
       end
     end
 
-    def pick_best(activated, best, last)
-      if
-        (activated.nil? || last == activated) && !best.activated?
-      then
-        last
-      else
-        best
-      end
+    def calculate_plugin_version(metadata, path)
+      ((metadata||{})[path]||"0").to_i
     end
 
     def load_plugin(path)

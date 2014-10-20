@@ -70,6 +70,9 @@ module Something
     module Structure; end
   end
 end
+module Activated
+  module Version1; end
+end
 module Latest
   module Version1; end
   module Version2; end

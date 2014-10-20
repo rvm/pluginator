@@ -73,6 +73,25 @@ describe Pluginator do
     pluginator["version2"].map(&:to_s).must_equal(["Latest::Version2::Max"])
   end
 
+  it "loads_only_plugins_from_activated_version_of_gem" do
+    all_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" }
+    all_gems.must_include("fake-gem-name-activated-1.0.0")
+    all_gems.must_include("fake-gem-name-activated-2.0.0")
+    Gem::Specification._all.find{|s| [s.name, s.version.to_s] == ["fake-gem-name-activated", "1.0.0"] }.activate
+    active_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" if s.activated? }.compact
+    active_gems.must_include("fake-gem-name-activated-1.0.0")
+    active_gems.wont_include("fake-gem-name-activated-2.0.0")
+
+    pluginator = Pluginator.find("activated")
+
+    active_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" if s.activated? }.compact
+    active_gems.must_include("fake-gem-name-activated-1.0.0")
+
+    pluginator.types.must_include("version1")
+    pluginator.types.size.must_equal(1)
+    pluginator["version1"].map(&:to_s).must_equal(["Activated::Version1::Max"])
+  end
+
   it "loads_latest_version_of_plugin_from_two_gems_v1" do
     all_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" }
     all_gems.must_include("fake-gem-name-v1a-1.0.0")
