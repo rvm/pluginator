@@ -30,7 +30,7 @@ module Pluginator::Extensions
     # @param type [String] name of type to search for plugins
     # @param method_name [Symbol] name of the method to execute
     # @param params [Array] params to pass to the called method
-    # @return The first plugin that method call returns true
+    # @return [Class] The first plugin that method call returns true
     def first_ask(type, method_name, *params)
       @plugins[type] or return nil
       try_to_find(type, method_name, params)
@@ -38,7 +38,11 @@ module Pluginator::Extensions
 
     # Call a method on plugin and return first one that returns `true`.
     # Behaves like `first_ask` but throws exceptions if can not find anything.
-    # @see #first_ask
+    # @param type [String] name of type to search for plugins
+    # @param method_name [Symbol] name of the method to execute
+    # @param params [Array] params to pass to the called method
+    # @return [Class] The first plugin that method call returns true
+    # @raise [Pluginator::MissingPlugin] when can not find plugin
     def first_ask!(type, method_name, *params)
       @plugins[type] or raise Pluginator::MissingType.new(type, @plugins.keys)
       try_to_find(type, method_name, params) or

@@ -29,16 +29,19 @@ module Pluginator::Extensions
 
     # Find first plugin that clas matches the given name.
     #
-    # @param type [String] name of type to search for plugins
-    # @param klass [Symbol or String] name of the searched class
-    # @return The first plugin that matches the klass
+    # @param type  [String] name of type to search for plugins
+    # @param klass [Symbol|String] name of the searched class
+    # @return      [Class] The first plugin that matches the klass
     def first_class(type, klass)
       (plugins_map(type) || {})[string2class(klass)]
     end
 
     # Find first plugin that clas matches the given name.
     # Behaves like `first_class` but throws exceptions if can not find anything.
-    # @see #first_class
+    # @param type  [String] name of type to search for plugins
+    # @param klass [Symbol|String] name of the searched class
+    # @return      [Class] The first plugin that matches the klass
+    # @raise [Pluginator::MissingPlugin] when can not find plugin
     def first_class!(type, klass)
       @plugins[type] or raise Pluginator::MissingType.new(type, @plugins.keys)
       klass = string2class(klass)
