@@ -3,3 +3,5 @@
 /coverage
 /doc
 /.yardoc
+/test/gems/gems/pluginator-*
+/test/gems/specifications/pluginator-*.gemspec
