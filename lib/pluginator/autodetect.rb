@@ -67,16 +67,22 @@ module Pluginator
 
     def unique_gemspec_paths(file_names)
       all = gemspec_and_paths(file_names)
-      gemspecs = all.map(&:first)
-      selected =
-      gemspecs.group_by{|spec| spec.name}.map(&:last).map do |specs|
-        activated = specs.find(&:activated?)
-        activated || specs.sort.last
-      end
+      selected = active_or_latest_gems_matching(all.map(&:first))
       all.map do |gemspec, path, name, type|
-        found = selected.find{|spec| spec == gemspec}
-        [found, path, name, type] if found
+        [gemspec, path, name, type] if selected.assoc(gemspec)
       end.compact
+    end
+
+    # filter active / latest gem versions
+    def active_or_latest_gems_matching(all)
+      all.group_by(&:name).map do |name, specifications|
+        active_or_latest_gem(specifications)
+      end
+    end
+
+    # find active or latest gem in given set
+    def active_or_latest_gem(specifications)
+      specifications.find(&:activated) or specifications.sort.last
     end
 
     def gemspec_and_paths(file_names)
@@ -107,15 +113,29 @@ module Pluginator
     end
 
     def find_latest_plugin_version(gemspecs, path)
-      gemspecs  = gemspecs.sort_by{|spec| [((spec.metadata||{})[path]||"0").to_i, spec.name, spec.version]}
+      gemspecs  = gemspecs_sorted_by_metadata_and_version(gemspecs)
       last      = gemspecs.last
       return last if gemspecs.size == 1
 
       activated = gemspecs.find(&:activated?)
       best      = Gem::Specification.find_by_path(path)
+
+      pick_best(activated, best, last)
+    end
+
+    def gemspecs_sorted_by_metadata_and_version(gemspecs)
+      gemspecs.sort_by do |spec|
+        [
+          ((spec.metadata||{})[path]||0).to_i,
+          spec.name,
+          spec.version,
+        ]
+      end
+    end
+
+    def pick_best(activated, best, last)
       if
-        (activated.nil? || last == activated) &&
-        !best.activated?
+        (activated.nil? || last == activated) && !best.activated?
       then
         last
       else
