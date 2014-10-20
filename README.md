@@ -1,16 +1,16 @@
 # Pluginator
 
 [![Gem Version](https://badge.fury.io/rb/pluginator.png)](http://rubygems.org/gems/pluginator)
-[![Build Status](https://travis-ci.org/rvm/pluginator.png?branch=master)](https://travis-ci.org/rvm/pluginator)
 [![Code Climate](https://codeclimate.com/github/rvm/pluginator.png)](https://codeclimate.com/github/rvm/pluginator)
-[![Coverage Status](https://coveralls.io/repos/rvm/pluginator/badge.png?branch=master)](https://coveralls.io/r/rvm/pluginator?branch=master)
+[![Coverage Status](https://coveralls.io/repos/rvm/pluginator/badge.png)](https://coveralls.io/r/rvm/pluginator)
+[![Build Status](https://travis-ci.org/rvm/pluginator.png)](https://travis-ci.org/rvm/pluginator)
 [![Dependency Status](https://gemnasium.com/rvm/pluginator.png)](https://gemnasium.com/rvm/pluginator)
 [![Inline docs](http://inch-ci.org/github/rvm/pluginator.png)](http://inch-ci.org/github/rvm/pluginator)
 [![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://rubydoc.info/github/rvm/pluginator/master/frames)
 [![Github Code](http://img.shields.io/badge/github-code-blue.svg)](https://github.com/rvm/pluginator)
 
 Gem plugin system management, detects plugins using `Gem.find_file`.
-Is only supposed with ruby 1.9.3+ (some tests fail on 1.9.2)
+Is only supposed to work with ruby 1.9.3+ (some tests fail on 1.9.2)
 
 Pluginator tries to stay out of your way, you do not have to include or inherit anything.
 Pluginator only finds and groups plugins, rest is up to you,
@@ -44,7 +44,7 @@ types = rvm2plugins.types
 
 ```ruby
 Pluginator.find("<group>") => Pluginator object
-plugins = Pluginator.find("<group>", type: "<type>", extends: %i{<extensions>})
+plugins = Pluginator.find("<group>", type: "<type>", extends: %i[<extensions>])
 plugins["<type>"] => Array of plugins
 plugins.type      => Array of plugins for type defined with `type: "<type>"`
 plugins.types     => Array of types
@@ -52,7 +52,7 @@ plugins.types     => Array of types
 
 - `"<group>"` - Load plugins for given group.
 - `type: "<type>"` - Load plugins only of given type, makes `type` method accessible.
-- `extends: %i{<extensions>}` - Extend pluginator with given extensions.
+- `extends: %i[<extensions>]` - Extend pluginator with given extensions.
 
 ## Extensions
 
@@ -63,8 +63,8 @@ Pluginator comes with few handful extensions.
 Check if plugin with given class name exists.
 
 ```ruby
-plugins = Pluginator.find("<group>", extends: %i{class_exist})
-plugins.class_exist?( "<type>", "<name>") => true or false
+plugins = Pluginator.find("<group>", extends: %i[class_exist]})
+plugins.class_exist?("<type>", "<name>") => true or false
 ```
 
 ### First ask
@@ -72,7 +72,7 @@ plugins.class_exist?( "<type>", "<name>") => true or false
 Call a method on plugin and return first one that returns `true`.
 
 ```ruby
-plugins = Pluginator.find("<group>", extends: %i{first_ask})
+plugins = Pluginator.find("<group>", extends: %i[first_ask])
 plugins.first_ask( "<type>", "method_to_call", *params) => plugin or nil
 plugins.first_ask!("<type>", "method_to_call", *params) => plugin or exception PluginatorError
 ```
@@ -82,7 +82,7 @@ plugins.first_ask!("<type>", "method_to_call", *params) => plugin or exception P
 Find first plugin that class matches the given name.
 
 ```ruby
-plugins = Pluginator.find("<group>", extends: %i{first_class})
+plugins = Pluginator.find("<group>", extends: %i[first_class])
 plugins.first_class( "<type>", "<name>") => plugin or nil
 plugins.first_class!("<type>", "<name>") => plugin or exception PluginatorError
 ```
@@ -92,7 +92,7 @@ plugins.first_class!("<type>", "<name>") => plugin or exception PluginatorError
 Map array of names to available plugins.
 
 ```ruby
-plugins = Pluginator.find("<group>", extends: %i{matching})
+plugins = Pluginator.find("<group>", extends: %i[matching])
 plugins.matching( "<type>", [<array_of_names>]) => [plugins] # nil for missing ones
 plugins.matching!("<type>", [<array_of_names>]) => [plugins] or exception PluginatorError
 ```
@@ -120,7 +120,7 @@ end
 And now you can use it:
 
 ```ruby
-plugins = Pluginator.find("<group>", extends: %i{first_one})
+plugins = Pluginator.find("<group>", extends: %i[first_one])
 plugins.first_one("<type>") => first_plugin # nil when none
 ```
 
@@ -179,7 +179,7 @@ Or using extensions:
 ```ruby
 require "pluginator"
 
-plugin = Pluginator.find("rvm2", extends: %i{first_ask}).first_ask("cli", &:question?, "echo")
+plugin = Pluginator.find("rvm2", extends: %i[first_ask]).first_ask("cli", &:question?, "echo")
 plugin.new.answer("Hello world")
 ```
 
