@@ -38,6 +38,7 @@ module Pluginator::Extensions
 
     # Call a method on plugin and return first one that returns `true`.
     # Behaves like `first_ask` but throws exceptions if can not find anything.
+    # @see #first_ask
     def first_ask!(type, method_name, *params)
       @plugins[type] or raise Pluginator::MissingType.new(type, @plugins.keys)
       try_to_find(type, method_name, params) or

@@ -39,6 +39,7 @@ module Pluginator::Extensions
 
     # Map array of names to available plugins.
     # Behaves like `matching` but throws exceptions if can not find anything.
+    # @see #matching
     def matching!(type, list)
       @plugins[type] or raise Pluginator::MissingType.new(type, @plugins.keys)
       list.map do |plugin|

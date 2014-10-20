@@ -38,6 +38,7 @@ module Pluginator::Extensions
 
     # Find first plugin that clas matches the given name.
     # Behaves like `first_class` but throws exceptions if can not find anything.
+    # @see #first_class
     def first_class!(type, klass)
       @plugins[type] or raise Pluginator::MissingType.new(type, @plugins.keys)
       klass = string2class(klass)
