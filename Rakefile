@@ -25,12 +25,7 @@ begin
   require "yard"
   YARD::Rake::YardocTask.new do |t|
     t.files   = ["lib/**/*.rb"]
-    # TODO: see https://github.com/lsegal/yard/pull/800
-    #~ t.stats_options = ["--list-undoc", "--compact"]
-    t.options = ["--no-stats"]
-    t.after = Proc.new do
-      YARD::CLI::Stats.new.run("--list-undoc", "--compact", "--use-cache")
-    end
+    t.stats_options = ["--list-undoc", "--compact"]
   end
 
   task :docs    => [:yard]

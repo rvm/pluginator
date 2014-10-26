@@ -31,4 +31,5 @@ group :development do
   gem "guard",          :platforms => [:mri_20]
   gem "guard-minitest", :platforms => [:mri_20]
   gem "guard-yard",     :platforms => [:mri_20]
+  gem "yard", ">=0.8.7.5", :platforms => [:mri_20]
 end
