@@ -21,13 +21,13 @@ require "plugins/pluginator/extensions/plugins_map"
 require "plugins/pluginator/extensions/conversions"
 
 module Pluginator::Extensions
-  # Extension to find first plugin that class matches the string
+  # Extension to find first plugin whose class matches the string
   module FirstClass
 
     include PluginsMap
     include Conversions
 
-    # Find first plugin that clas matches the given name.
+    # Find first plugin whose class matches the given name.
     #
     # @param type  [String] name of type to search for plugins
     # @param klass [Symbol|String] name of the searched class
@@ -36,7 +36,7 @@ module Pluginator::Extensions
       (plugins_map(type) || {})[string2class(klass)]
     end
 
-    # Find first plugin that clas matches the given name.
+    # Find first plugin whose class matches the given name.
     # Behaves like `first_class` but throws exceptions if can not find anything.
     # @param type  [String] name of type to search for plugins
     # @param klass [Symbol|String] name of the searched class
