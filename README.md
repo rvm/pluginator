@@ -21,7 +21,7 @@ you decide what methods to define and how to find them.
 create a gem with a path:
 
 ```ruby
-plugins/<group>/<type>/<name>.rb
+lib/plugins/<group>/<type>/<name>.rb
 ```
 
 with a class inside:
