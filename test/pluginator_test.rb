@@ -21,7 +21,7 @@ require "test_helper"
 require "pluginator"
 
 describe Pluginator do
-  it "loads_plugins_automatically_for_group" do
+  it :loads_plugins_automatically_for_group do
     pluginator = Pluginator.find("something")
     pluginator.types.must_include("stats")
     pluginator.types.must_include("math")
@@ -34,26 +34,32 @@ describe Pluginator do
     plugins.wont_include("Something::Math::Add")
   end
 
-  it "loads_plugins_automatically_for_group_type" do
+  it :loads_plugins_automatically_for_group_type do
     pluginator = Pluginator.find("something", :type => "stats")
     pluginator.types.must_include("stats")
     pluginator.types.size.must_equal(1)
   end
 
-  it "loads_existing_extensions_symbol" do
+  it :loads_existing_extensions_symbol do
     pluginator = Pluginator.find("something", :extends => :conversions)
     pluginator.public_methods.map(&:to_sym).must_include(:class2string)
     pluginator.public_methods.map(&:to_sym).must_include(:string2class)
     pluginator.public_methods.map(&:to_sym).wont_include(:plugins_map)
   end
 
-  it "loads_nested_plugins" do
+  it :loads_nested_plugins do
     pluginator = Pluginator.find("something")
     pluginator.types.must_include("nested/structure")
     pluginator["nested/structure"].map(&:to_s).must_equal(["Something::Nested::Structure::Test"])
   end
 
-  it "loads_only_plugins_from_latest_version_of_gem" do
+  it :loads_plugins_from_load_path do
+    pluginator = Pluginator.find("load_path")
+    pluginator.types.must_include("stats")
+    pluginator["stats"].map(&:to_s).must_equal(["LoadPath::Stats::Max"])
+  end
+
+  it :loads_only_plugins_from_latest_version_of_gem do
     all_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" }
     all_gems.must_include("fake-gem-name-latest-1.0.0")
     all_gems.must_include("fake-gem-name-latest-2.0.0")
@@ -73,7 +79,7 @@ describe Pluginator do
     pluginator["version2"].map(&:to_s).must_equal(["Latest::Version2::Max"])
   end
 
-  it "loads_only_plugins_from_activated_version_of_gem" do
+  it :loads_only_plugins_from_activated_version_of_gem do
     all_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" }
     all_gems.must_include("fake-gem-name-activated-1.0.0")
     all_gems.must_include("fake-gem-name-activated-2.0.0")
@@ -92,7 +98,7 @@ describe Pluginator do
     pluginator["version1"].map(&:to_s).must_equal(["Activated::Version1::Max"])
   end
 
-  it "loads_latest_version_of_plugin_from_two_gems_v1" do
+  it :loads_latest_version_of_plugin_from_two_gems_v1 do
     all_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" }
     all_gems.must_include("fake-gem-name-v1a-1.0.0")
     all_gems.must_include("fake-gem-name-v1b-1.0.0")
@@ -111,7 +117,7 @@ describe Pluginator do
     pluginator["stats"].first.action.must_equal(42)
   end
 
-  it "loads_latest_version_of_plugin_from_two_gems_v2" do
+  it :loads_latest_version_of_plugin_from_two_gems_v2 do
     all_gems = Gem::Specification._all.map{|s| "#{s.name}-#{s.version}" }
     all_gems.must_include("fake-gem-name-v2a-1.0.0")
     all_gems.must_include("fake-gem-name-v2b-1.0.0")

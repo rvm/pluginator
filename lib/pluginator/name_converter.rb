@@ -22,16 +22,6 @@ module Pluginator
   module NameConverter
   private
 
-    # file_name, group => [ path, full_name, type ]
-    def split_file_name(file_name, group)
-      file_name.match(/.*\/(plugins\/(#{group}\/(.*)\/[^\/]*)\.rb)$/)[1..3]
-    end
-
-    # group => pattern
-    def file_name_pattern(group, type=nil)
-      "plugins/#{group}/#{type || "**"}/*.rb"
-    end
-
     # full_name => class
     def name2class(name)
       klass = Kernel
