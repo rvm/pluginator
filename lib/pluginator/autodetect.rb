@@ -33,7 +33,23 @@ module Pluginator
     # @option type   [String] name of the plugin type
     def initialize(group, options = {})
       super(group)
-      setup_autodetect(options[:type])
+      @force_type = options[:type]
+      refresh
+    end
+
+    # Initiate another lookup for plugins
+    # - does not clean the state
+    # - does not resolve all gems, only the new ones
+    #
+    # Use it after gem list change, for example after `Gem.install("new_gem")`
+    def refresh
+      load_plugins(
+        *detect_plugins(
+          unique_parsed_paths(
+            find_files
+          )
+        )
+      )
     end
 
     # Return the forced type
@@ -41,36 +57,74 @@ module Pluginator
       @plugins[@force_type] unless @force_type.nil?
     end
 
-  private
+    private
 
     include NameConverter
 
-    def setup_autodetect(type)
-      force_type(type)
-      load_files(find_files)
-    end
-
-    def force_type(type)
-      @force_type = type
-    end
-
     def find_files
-      Gem.find_files(file_name_pattern(@group, @force_type))
+      Gem.find_files(file_name_pattern(@group, @force_type), true)
     end
 
-    def load_files(file_names)
-      unique_gemspec_paths(file_names).each do |gemspec, path, name, type|
-        gemspec.activate
-        load_plugin(path) and
-        register_plugin(type, name2class(name))
+    def unique_parsed_paths(file_names)
+      file_names.map do |file_name|
+        split_file_name(file_name, @group)
+      end.sort.uniq
+    end
+
+    def detect_plugins(parsed_paths)
+      plugins_to_register = []
+      plugins_to_activate = []
+      plugins_to_load     = []
+      loaded_plugins      = find_loaded_plugins
+      available_gem_specs = gem_specifications
+      parsed_paths.each do |path, name, type|
+        if loaded_plugins.include?(path)
+          plugins_to_register.push([name, type])
+        elsif (gemspec = gemspec_for_path(path, available_gem_specs))
+          plugins_to_activate.push([gemspec, path, name, type])
+        else
+          plugins_to_load.push([path, name, type])
+        end
+      end
+      [ plugins_to_register, plugins_to_activate, plugins_to_load ]
+    end
+
+    def find_loaded_plugins
+      $LOADED_FEATURES.map{ |file_name|
+        split_file_name(file_name, @group)
+      }.compact.map(&:first)
+    end
+
+    def gem_specifications
+      if
+        Gem.methods.map(&:to_sym).include?(:gemdeps) && Gem.gemdeps
+      then
+        # :nocov: only testable with using rubygems's gemdeps feature
+        Gem.loaded_specs.values
+        # :nocov:
+      else
+        specs = Gem::Specification._all
+        if Gem.methods.map(&:to_sym).include?(:loaded_specs)
+          specs = (Gem.loaded_specs.values + specs).uniq
+        end
+        specs
       end
     end
 
-    def unique_gemspec_paths(file_names)
-      all = gemspec_and_paths(file_names)
-      selected = active_or_latest_gems_matching(all.map(&:first))
-      all.select do |gemspec, path, name, type|
-        selected.include?(gemspec)
+    def load_plugins(plugins_to_register, plugins_to_activate, plugins_to_load)
+      plugins_to_register.each do |name, type|
+        register_plugin(type, name2class(name))
+      end
+      plugins_to_load.each do |path, name, type|
+        require path
+        register_plugin(type,name2class(name))
+      end
+      selected = active_or_latest_gems_matching(plugins_to_activate.map(&:first).compact)
+      plugins_to_activate.each do |gemspec, path, name, type|
+        next unless selected.include?(gemspec)
+        gemspec.activate
+        require path
+        register_plugin(type, name2class(name))
       end
     end
 
@@ -86,21 +140,8 @@ module Pluginator
       specifications.find(&:activated) || specifications.last
     end
 
-    def gemspec_and_paths(file_names)
-      unique_parsed_paths(file_names).map do |path, name, type|
-        gemspec = gemspec_for_path(path)
-        [gemspec, path, name, type] if gemspec
-      end.compact
-    end
-
-    def unique_parsed_paths(file_names)
-      file_names.map do |file_name|
-        split_file_name(file_name, @group)
-      end.sort.uniq
-    end
-
-    def gemspec_for_path(path)
-      gemspecs = Gem::Specification._all.reject do |spec|
+    def gemspec_for_path(path, specifications)
+      gemspecs = specifications.reject do |spec|
         Dir.glob( File.join( spec.lib_dirs_glob, path ) ).empty?
       end
       case gemspecs.size
@@ -127,9 +168,15 @@ module Pluginator
       ((metadata||{})[path]||"0").to_i
     end
 
-    def load_plugin(path)
-      require path
-      true
+    # file_name, group => [ path, full_name, type ]
+    def split_file_name(file_name, group)
+      match = file_name.match(/.*\/(plugins\/(#{group}\/(.*)\/[^\/]*)\.rb)$/)
+      match[1..3] if match
+    end
+
+    # group => pattern
+    def file_name_pattern(group, type=nil)
+      "plugins/#{group}/#{type || "**"}/*.rb"
     end
 
   end

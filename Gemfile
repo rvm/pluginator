@@ -19,17 +19,17 @@ along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 
 source "https://rubygems.org"
 
-#ruby=2.0.0
+#ruby=2.4.1
 
 gemspec
 
 group :development do
-  # statistics only on MRI 2.0 - avoid problems on older rubies
-  gem "redcarpet",      :platforms => [:mri_20]
-  gem "simplecov",      :platforms => [:mri_20]
-  gem "coveralls",      :platforms => [:mri_20]
-  gem "guard",          :platforms => [:mri_20]
-  gem "guard-minitest", :platforms => [:mri_20]
-  gem "guard-yard",     :platforms => [:mri_20]
-  gem "yard", ">=0.8.7.5", :platforms => [:mri_20]
+  # statistics only on MRI 2.4 - avoid problems on older rubies
+  gem "redcarpet",      :platforms => [:mri_24]
+  gem "simplecov",      :platforms => [:mri_24]
+  gem "coveralls",      :platforms => [:mri_24]
+  gem "guard",          :platforms => [:mri_24]
+  gem "guard-minitest", :platforms => [:mri_24]
+  gem "guard-yard",     :platforms => [:mri_24]
+  gem "yard", ">=0.8.7.5", :platforms => [:mri_24]
 end

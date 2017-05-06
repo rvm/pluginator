@@ -34,28 +34,28 @@ describe Pluginator::Extensions::FirstClass do
     ] }
   end
 
-  it "finds existing plugin" do
+  it :finds_existing_plugin do
     @tester.first_class("stats", "max").must_equal( Something::Stats::Max )
   end
 
-  it "finds proper plugin" do
+  it :finds_proper_plugin do
     @tester.first_class("stats", "max").action.must_equal( 42 )
   end
 
-  it "finds existing plugin - no exception" do
+  it :finds_existing_plugin_no_exception do
     @tester.first_class!("stats", "max").must_equal( Something::Stats::Max )
   end
 
-  it "does not find missing plugin - no exception" do
-    @tester.first_class("stats", "min").must_equal( nil )
+  it :does_not_find_missing_plugin_no_exception do
+    @tester.first_class("stats", "min").must_be_nil
   end
 
-  it "does not find missing plugin - exception plugin" do
+  it :does_not_find_missing_plugin_exception_plugin do
     lambda {
       @tester.first_class!("stats", "min")
     }.must_raise(Pluginator::MissingPlugin)
   end
-  it "does not find missing plugin - exception type" do
+  it :does_not_find_missing_plugin_exception_type do
     lambda {
       @tester.first_class!("stats2", "max")
     }.must_raise(Pluginator::MissingType)

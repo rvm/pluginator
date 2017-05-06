@@ -26,7 +26,7 @@ class PluginsMapTester
 end
 
 describe Pluginator::Extensions::PluginsMap do
-  it "creates map" do
+  it :creates_map do
     tester = PluginsMapTester.new
     tester.plugins = { "extensions" => [Pluginator::Extensions::PluginsMap] }
     expected = { "PluginsMap" => Pluginator::Extensions::PluginsMap }

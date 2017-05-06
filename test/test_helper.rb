@@ -23,7 +23,7 @@ require "rubygems"
 require "minitest"
 
 # fix lib in LOAD_PATH and load version for gems manipulation
-lib = File.expand_path("../lib", __FILE__)
+lib = File.expand_path("../../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "pluginator/version"
 
@@ -40,22 +40,26 @@ File.symlink(File.expand_path("../../", __FILE__), File.expand_path("../gems/gem
 Gem.path << File.expand_path("../gems", __FILE__)
 Gem.refresh
 
+# register custom LOAD_PATH
+load_path = File.expand_path("../gems/load_path", __FILE__)
+$LOAD_PATH.push(load_path)
+
 # make sure pluginator is available as gem for tests of pluginator plugins
 #Gem::Specification.add_spec(Gem::Specification.load(File.expand_path("../gems/specifications/pluginator-#{Pluginator::VERSION}.gemspec", __FILE__)))
 gem "pluginator"
 
 if
-  RUBY_VERSION == "2.0.0" && # check Gemfile
+  RUBY_VERSION.start_with?("2.4") && # check Gemfile
   $0 != "-e" # do not do that in guard
 then
   require "coveralls"
   require "simplecov"
 
   SimpleCov.start do
-    formatter SimpleCov::Formatter::MultiFormatter[
+    formatter SimpleCov::Formatter::MultiFormatter.new([
       SimpleCov::Formatter::HTMLFormatter,
       Coveralls::SimpleCov::Formatter,
-    ]
+    ])
     command_name "Unit Tests"
     add_filter "/test/"
   end
@@ -86,3 +90,5 @@ end
 
 require "minitest/autorun" unless $0=="-e" # skip in guard
 require "minitest/unit"
+require "minitest/reporters"
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new

@@ -2,14 +2,14 @@ language: ruby
 rvm:
   - jruby
   - ruby-head
+  - 2.4.1
+  - 2.3
+  - 2.2
   - 2.1
   - 2.0.0
-  - 1.9.3
-  - 1.9.2
-  - 1.8.7
   - rbx
-before_script:
-  - 'if [[ "$TRAVIS_RUBY_VERSION" == rbx ]]; then gem update bundler; fi'
+before_install:
+  - 'gem update bundler'
 script:
   - NOEXEC_DISABLE=1 rake
 notifications:

@@ -17,29 +17,16 @@ You should have received a copy of the GNU Lesser General Public License
 along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require "test_helper"
-require "plugins/pluginator/extensions/class_exist"
-require "plugins/something/stats/max"
+module LoadPath
+  module Stats
+    class Max
+      def self.handles?(what)
+        %w{ max maximum }.include?(what)
+      end
 
-class ClassExistTester
-  attr_accessor :plugins
-  include Pluginator::Extensions::ClassExist
-end
-
-describe Pluginator::Extensions::ClassExist do
-  subject do
-    tester = ClassExistTester.new
-    tester.plugins = { "stats" => [
-      Something::Stats::Max
-    ] }
-    tester
-  end
-
-  it :plugin_exists do
-    subject.class_exist?("stats", "max").must_equal( true )
-  end
-
-  it :plugin_missing do
-    subject.class_exist?("stats", "min").must_equal( false )
+      def self.action
+        42
+      end
+    end
   end
 end
