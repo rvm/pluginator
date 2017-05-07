@@ -1,5 +1,5 @@
 =begin
-Copyright 2013 Michal Papis <mpapis@gmail.com>
+Copyright 2013-2017 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
@@ -52,54 +52,6 @@ describe Pluginator::Autodetect do
     )
   end
 
-  describe :methods do
-    before do
-      @pluginator = Pluginator::Autodetect.allocate
-      @pluginator.send(:setup_group, "something")
-    end
-
-    it :has_name do
-      @pluginator.group.must_equal("something")
-    end
-
-    it :has_gem_file do
-      File.exist?(gem_file("plugins/something/math/increase.rb")).must_equal(true)
-    end
-
-    it :finds_files_existing_group do
-      @pluginator.instance_variable_set(:@force_type, nil)
-      @pluginator.send(:find_files).sort.must_equal(@all_files.sort)
-    end
-
-    it :finds_files_group_and_missing_type do
-      @pluginator.instance_variable_set(:@force_type, "none")
-      @pluginator.send(:find_files).must_equal([])
-    end
-
-    it :finds_files_group_and_existing_type do
-      @pluginator.instance_variable_set(:@force_type, "math")
-      @pluginator.send(:find_files).sort.must_equal(@math_files.sort)
-    end
-
-    it :extracts_file_name_components do
-      @pluginator.send(:split_file_name, "/path/to/plugins/group1/type1/name1.rb", "group1").
-        must_equal(["plugins/group1/type1/name1.rb", "group1/type1/name1", "type1"])
-    end
-
-    it :builds_group_pattern do
-      @pluginator.send(:file_name_pattern, "group2").must_equal("plugins/group2/**/*.rb")
-    end
-
-    it :builds_group_nil_pattern do
-      @pluginator.send(:file_name_pattern, "group2").must_equal("plugins/group2/**/*.rb")
-    end
-
-    it :builds_group_type_pattern do
-      @pluginator.send(:file_name_pattern, "group2", "type3").must_equal("plugins/group2/type3/*.rb")
-    end
-
-  end
-
   it :loads_plugins_automatically_for_group do
     pluginator = Pluginator::Autodetect.new("something")
     pluginator.types.must_include("stats")
@@ -114,8 +66,7 @@ describe Pluginator::Autodetect do
 
   it :loads_plugins_automatically_for_group_type do
     pluginator = Pluginator::Autodetect.new("something", :type => "stats")
-    pluginator.types.must_include("stats")
-    pluginator.types.size.must_equal(1)
+    pluginator.types.sort.must_equal(["stats"])
   end
 
   it :makes_group_plugins_work do

@@ -1,5 +1,5 @@
 =begin
-Copyright 2013 Michal Papis <mpapis@gmail.com>
+Copyright 2013-2017 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
@@ -28,10 +28,15 @@ module Pluginator::Extensions
     #
     # @param type [String] name of type to generate the map for
     # @return [Hash] map of the names and plugin classes
-    def plugins_map( type )
+
+    def plugins_map(type)
       @plugins_map ||= {}
       type = type.to_s
-      @plugins_map[type] ||= Hash[ @plugins[type].map{|plugin| [class2name(plugin), plugin] } ]
+      @plugins_map[type] ||= Hash[
+        @plugins[type].map do |plugin|
+          [class2name(plugin), plugin]
+        end
+      ]
     end
   end
 end

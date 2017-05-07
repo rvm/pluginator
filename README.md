@@ -9,8 +9,10 @@
 [![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://rubydoc.info/github/rvm/pluginator/master/frames)
 [![Github Code](http://img.shields.io/badge/github-code-blue.svg)](https://github.com/rvm/pluginator)
 
-Gem plugin system management, detects plugins using `Gem.find_file`.
-Is only supposed to work with ruby 1.9.3+ (some tests fail on 1.9.2)
+Gem plugin system management, detects plugins using `Gem.find_file`,
+`$LOAD_PATH` and `$LOADED_FEATURES`.
+
+It is only supposed to work with ruby 1.9.3+ (some tests fail on 1.9.2)
 
 Pluginator tries to stay out of your way, you do not have to include or inherit anything.
 Pluginator only finds and groups plugins, rest is up to you,
@@ -213,7 +215,7 @@ NOEXEC_DISABLE=1 rake test
 
 ## License
 
-Copyright 2013,2014 Michal Papis <mpapis@gmail.com>
+Copyright 2013-2017 Michal Papis <mpapis@gmail.com>
 
 pluginator is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published

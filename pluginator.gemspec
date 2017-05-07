@@ -3,7 +3,7 @@
 # stub: PLUGINATOR ruby lib
 
 =begin
-Copyright 2013
+Copyright 2013-2017
 - Michal Papis <mpapis@gmail.com>
 - Jordon Bedwell <envygeeks@gmail.com>
 
@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
   s.files = Dir["lib/**/*.rb", "*.md", "COPYING*"]
   s.required_ruby_version = ">= 1.8.7"
   s.add_development_dependency("rake")
+  s.add_development_dependency("rubocop")
   s.add_development_dependency("minitest")
   s.add_development_dependency("minitest-reporters")
   # s.add_development_dependency("smf-gem")

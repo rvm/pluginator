@@ -1,5 +1,5 @@
 =begin
-Copyright 2013 Michal Papis <mpapis@gmail.com>
+Copyright 2013-2017 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
@@ -22,8 +22,9 @@ module Pluginator
   # base error for all Pluginator errors
   class PluginatorError < RuntimeError
   private
+
     def list_to_s(list)
-      list.map{|e| e.to_s.inspect }.join(", ")
+      list.map { |plugin| plugin.to_s.inspect }.join(", ")
     end
   end
 

@@ -1,5 +1,5 @@
 =begin
-Copyright 2013 Michal Papis <mpapis@gmail.com>
+Copyright 2013-2017 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
@@ -36,8 +36,7 @@ describe Pluginator do
 
   it :loads_plugins_automatically_for_group_type do
     pluginator = Pluginator.find("something", :type => "stats")
-    pluginator.types.must_include("stats")
-    pluginator.types.size.must_equal(1)
+    pluginator.types.sort.must_equal(["stats"])
   end
 
   it :loads_existing_extensions_symbol do

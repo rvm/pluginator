@@ -1,5 +1,5 @@
 =begin
-Copyright 2013 Michal Papis <mpapis@gmail.com>
+Copyright 2013-2017 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
@@ -19,5 +19,5 @@ along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 
 module Pluginator
   # Version of Pluginator
-  VERSION = "1.3.0"
+  VERSION = "1.3.0".freeze
 end

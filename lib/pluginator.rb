@@ -1,5 +1,5 @@
 =begin
-Copyright 2013,2014 Michal Papis <mpapis@gmail.com>
+Copyright 2013-2017 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
@@ -29,7 +29,7 @@ module Pluginator
   # @option type   [String] name of type to load
   # @option extend [Array<Symbol>|Symbol] list of extension to extend into pluginator instance
   # @return [Pluginator::ExtendableAutodetect] instance of Pluginator
-  def self.find(group, options = {})
+  def self.find(group, options={})
     Pluginator::ExtendableAutodetect.new(group, options)
   end
 end
