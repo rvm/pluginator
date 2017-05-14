@@ -28,8 +28,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "pluginator/version"
 
 Gem::Specification.new do |s|
-  s.email = ["mpapis@gmail.com", "envygeeks@gmail.com", "mose@mose.com"]
-  s.authors = ["Michal Papis", "Jordon Bedwell", "Mose"]
+  s.email = ["mpapis@gmail.com", "envygeeks@gmail.com", "mose@mose.com", "johnogara@gmail.com"]
+  s.authors = ["Michal Papis", "Jordon Bedwell", "Mose", "John O'Gara"]
   s.name = "pluginator"
   s.version = Pluginator::VERSION
   s.license = "LGPL v3"
