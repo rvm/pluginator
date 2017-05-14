@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.0
+date: 2017-05-14
+
+- reworked finding plugins, now also searches `$LOADED_FEATURES`
+
 ## 1.3.0
 date: 2014-10-20
 

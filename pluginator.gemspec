@@ -28,12 +28,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "pluginator/version"
 
 Gem::Specification.new do |s|
-  s.email = ["mpapis@gmail.com", "envygeeks@gmail.com", "mose@mose.com", "johnogara@gmail.com"]
-  s.authors = ["Michal Papis", "Jordon Bedwell", "Mose", "John O'Gara"]
-  s.name = "pluginator"
+  s.email   = ["mpapis@gmail.com", "envygeeks@gmail.com", "mose@mose.com", "johnogara@gmail.com"]
+  s.authors = ["Michal Papis",     "Jordon Bedwell",      "Mose",          "John O'Gara"        ]
+  s.name    = "pluginator"
   s.version = Pluginator::VERSION
   s.license = "LGPL v3"
-  s.files = Dir["lib/**/*.rb", "*.md", "COPYING*"]
+  s.files   = Dir["lib/**/*.rb", "*.md", "COPYING*"]
   s.required_ruby_version = ">= 1.8.7"
   s.add_development_dependency("rake")
   s.add_development_dependency("rubocop")
@@ -41,5 +41,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency("minitest-reporters")
   # s.add_development_dependency("smf-gem")
   s.homepage = "https://github.com/rvm/pluginator"
-  s.summary = "Rubygems plugin system using Gem.find_files."
+  s.summary = "Rubygems plugin system using Gem.find_files, $LOAD_PATH and $LOADED_FEATURES."
 end
