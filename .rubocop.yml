@@ -1,0 +1,33 @@
+Lint/ConditionPosition:
+  Enabled: false
+Metrics/LineLength:
+  Max: 111
+Style/AccessModifierIndentation:
+  EnforcedStyle: outdent
+Style/AndOr:
+  EnforcedStyle: conditionals
+Style/BlockComments:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/DoubleNegation:
+  Enabled: false
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+Style/MultilineIfThen:
+  Enabled: false
+Style/MultilineOperationIndentation:
+  Enabled: false
+Style/PredicateName:
+  NameWhitelist:
+    - has_public_method?
+Style/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+Style/SpaceInsideParens:
+  Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes

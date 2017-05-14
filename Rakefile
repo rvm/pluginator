@@ -1,5 +1,5 @@
 =begin
-Copyright 2013
+Copyright 2013-2017
 - Michal Papis <mpapis@gmail.com>
 - Jordon Bedwell <envygeeks@gmail.com>
 
@@ -40,5 +40,16 @@ Rake::TestTask.new do |t|
   t.pattern = "test/**/*_test.rb"
 end
 default_tasks << :test
+
+begin
+  require "rubocop/rake_task.rb"
+  RuboCop::RakeTask.new do |t|
+    t.patterns = %w[lib/]
+  end
+  unless ENV["CI"]
+    default_tasks << :rubocop
+  end
+rescue LoadError
+end
 
 task :default => default_tasks

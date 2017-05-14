@@ -1,5 +1,5 @@
 =begin
-Copyright 2013 Michal Papis <mpapis@gmail.com>
+Copyright 2013-2017 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
@@ -24,20 +24,23 @@ module Pluginator::Extensions
     # converts class name to a file name
     # @param klass [String] class like string
     # @return      [String] file like string
-    def class2string( klass )
-      klass.to_s.gsub(/([A-Z])/m){|match| "_#{$1.downcase}" }[1..-1]
+
+    def class2string(klass)
+      klass.to_s.gsub(/([A-Z])/m) { |match| "_#{match.downcase}" }[1..-1]
     end
 
     # converts file name to a class name
     # @param str [String] file like string
     # @return    [String] class like string
-    def string2class( str )
-      str.to_s.capitalize.gsub(/_(.)/){ $1.upcase }
+
+    def string2class(str)
+      str.to_s.capitalize.gsub(/_(.)/) { |match| match[1].upcase }
     end
 
     # gets class name last part
     # @param klass [Class]  class to read
     # @return      [String] the class name only without nesting
+
     def class2name(klass)
       klass.name.split("::").last
     end

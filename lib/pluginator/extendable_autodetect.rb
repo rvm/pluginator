@@ -1,5 +1,5 @@
 =begin
-Copyright 2013 Michal Papis <mpapis@gmail.com>
+Copyright 2013-2017 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
@@ -38,9 +38,9 @@ module Pluginator
     # @param options  [Hash]   options to pass to creating Pluginator instance
     # @option type    [String] name of type to load
     # @option extends [Array<Symbol>|Symbol] list of extension to extend into pluginator instance
-    def initialize(group, options = {})
+    def initialize(group, options={})
       super(group, options)
-      extend_plugins(options[:extends]||[])
+      extend_plugins(options[:extends] || [])
     end
 
     # Extend pluginator instance with given extensions
@@ -54,11 +54,6 @@ module Pluginator
 
   private
 
-    def flatten_and_stringify(extends)
-      extends = [extends].flatten.map(&:to_s)
-      extends
-    end
-
     def pluginator_plugins
       @pluginator_plugins ||= begin
         plugins = Pluginator::Autodetect.new("pluginator")
@@ -68,7 +63,8 @@ module Pluginator
     end
 
     def extensions_matching(extends)
-      pluginator_plugins.matching!("extensions", flatten_and_stringify(extends))
+      extends = [extends].flatten.map(&:to_s)
+      pluginator_plugins.matching!("extensions", extends)
     end
 
   end

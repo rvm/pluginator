@@ -1,5 +1,5 @@
 =begin
-Copyright 2013 Michal Papis <mpapis@gmail.com>
+Copyright 2013-2017 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
@@ -53,7 +53,7 @@ module Pluginator::Extensions
 
     def try_to_find(type, method_name, params)
       @plugins[type].detect do |plugin|
-        has_public_method?(plugin, method_name) &&
+        has_public_method?(plugin, method_name) and
         plugin.send(method_name.to_sym, *params)
       end
     end

@@ -1,5 +1,5 @@
 =begin
-Copyright 2013 Michal Papis <mpapis@gmail.com>
+Copyright 2013-2017 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
@@ -28,6 +28,7 @@ describe Pluginator::Extensions::Conversions do
   it :class2string do
     ConversionsTester.class2string("SomethingLong").must_match("something_long")
   end
+
   it :string2class do
     ConversionsTester.string2class("something_long").must_match("SomethingLong")
   end
