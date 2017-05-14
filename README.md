@@ -135,7 +135,7 @@ plugins.first_one("<type>") => first_plugin # nil when none
 
 ## Versioning plugins
 
-In case plugin gets moved to other gem you can sdpecify which gem to
+In case plugin gets moved to other gem you can specify which gem to
 use for loading the plugin by specifying plugin version in gems gemspec
 metadata:
 
