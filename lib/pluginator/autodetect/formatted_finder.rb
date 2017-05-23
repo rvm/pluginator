@@ -58,11 +58,11 @@ module Pluginator
           gem_has_method?(:gemdeps) && Gem.gemdeps
         then
           # :nocov: only testable with using rubygems's gemdeps feature
-          Gem.loaded_specs.values
+          Gem.loaded_specs.values.to_a
           # :nocov:
         else
-          specs = Gem::Specification._all
-          specs = (Gem.loaded_specs.values + specs).uniq if gem_has_method?(:loaded_specs)
+          specs = Gem::Specification._all.to_a
+          specs = (Gem.loaded_specs.values.to_a + specs).uniq if gem_has_method?(:loaded_specs)
           specs
         end
       end

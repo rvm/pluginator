@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1
+date: 2017-05-23
+
+- fix compatibility with bundler 1.15
+
 ## 1.4.0
 date: 2017-05-14
 
