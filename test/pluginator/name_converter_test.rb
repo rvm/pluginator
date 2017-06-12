@@ -23,6 +23,8 @@ require "pluginator/name_converter"
 class Converter
   extend Pluginator::NameConverter
 end
+class PuppetDebugger
+end
 
 describe Pluginator::NameConverter do
   describe "classes" do
