@@ -12,7 +12,7 @@
 Gem plugin system management, detects plugins using `Gem.find_file`,
 `$LOAD_PATH` and `$LOADED_FEATURES`.
 
-It is only supposed to work with ruby 1.9.3+ (some tests fail on 1.9.2)
+Pluginator works with *ruby 1.9.3+* and *rubygems 2.0.0+*.
 
 Pluginator tries to stay out of your way, you do not have to include or inherit anything.
 Pluginator only finds and groups plugins, rest is up to you,

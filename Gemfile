@@ -32,4 +32,4 @@ group :development do
   gem "guard-minitest", :platforms => [:mri_24]
   gem "guard-yard",     :platforms => [:mri_24]
   gem "yard", ">=0.8.7.5", :platforms => [:mri_24]
-end
+end if RUBY_VERSION>='2.4.0'

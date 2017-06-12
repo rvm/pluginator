@@ -31,12 +31,12 @@ Gem::Specification.new do |s|
   s.email   = ["mpapis@gmail.com", "envygeeks@gmail.com", "mose@mose.com", "johnogara@gmail.com"]
   s.authors = ["Michal Papis",     "Jordon Bedwell",      "Mose",          "John O'Gara"        ]
   s.name    = "pluginator"
-  s.version = Pluginator::VERSION
+  s.version = Pluginator::VERSION.dup
   s.license = "LGPL v3"
   s.files   = Dir["lib/**/*.rb", "*.md", "COPYING*"]
-  s.required_ruby_version = ">= 1.8.7"
+  s.required_ruby_version = ">= 1.9.3"
   s.add_development_dependency("rake")
-  s.add_development_dependency("rubocop")
+  s.add_development_dependency("rubocop") if RUBY_VERSION>="2.0.0"
   s.add_development_dependency("minitest")
   s.add_development_dependency("minitest-reporters")
   # s.add_development_dependency("smf-gem")
