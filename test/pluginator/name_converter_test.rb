@@ -23,11 +23,21 @@ require "pluginator/name_converter"
 class Converter
   extend Pluginator::NameConverter
 end
+class PuppetDebugger
+end
 
 describe Pluginator::NameConverter do
   describe "classes" do
     it :builds_class do
       Converter.send(:name2class, "Converter").must_equal(Converter)
+    end
+
+    it :builds_class_with_dash do
+      Converter.send(:name2class, "puppet-debugger").must_equal(PuppetDebugger)
+    end
+
+    it :builds_class_with_underscore do
+      Converter.send(:name2class, "puppet_debugger").must_equal(PuppetDebugger)
     end
   end
 end

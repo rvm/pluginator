@@ -27,7 +27,7 @@ module Pluginator
       klass = Kernel
       name.to_s.split(%r{/}).each do |part|
         klass = klass.const_get(
-          part.capitalize.gsub(/_(.)/) { |match| match[1].upcase }
+          part.capitalize.gsub(/[_-](.)/) { |match| match[1].upcase }
         )
       end
       klass
