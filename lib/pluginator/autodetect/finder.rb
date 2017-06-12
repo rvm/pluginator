@@ -27,20 +27,24 @@ module Pluginator
 
       # Automatically load plugins for given group (and type)
       #
-      # @param group      [String] name of the plugins group
-      # @param force_type [String] name of the plugin type if forcing
-      def initialize(group, force_type)
-        @group      = group
-        @force_type = force_type
-        @pattern    = file_name_pattern(@group, @force_type)
+      # @param force_prefix [String] a prefix for finding plugins if forcing,
+      #                              by default only `/lib` is checked,
+      #                              regexp notation is allowed, for example `/[lib|]`
+      # @param group        [String] name of the plugins group
+      # @param force_type   [String] name of the plugin type if forcing
+      def initialize(force_prefix, group, force_type)
+        @force_prefix = force_prefix
+        @group        = group
+        @force_type   = force_type
+        @pattern      = file_name_pattern
         find_paths
       end
 
     private
 
       # group => pattern
-      def file_name_pattern(group, type=nil)
-        "plugins/#{group}/#{type || "**"}/*.rb"
+      def file_name_pattern
+        "plugins/#{@group}/#{@force_type || "**"}/*.rb"
       end
 
       def find_paths
@@ -69,15 +73,16 @@ module Pluginator
 
       def split_file_names(file_names)
         file_names.map do |file_name|
-          split_file_name(file_name, @group, @force_type)
+          split_file_name(file_name)
         end
       end
 
-      # file_name, group, type => [ path, full_name, type ]
-      def split_file_name(file_name, group, type=nil)
-        type ||= ".*"
-        match = file_name.match(%r{.*/(plugins/(#{group}/(#{type})/[^/]*)\.rb)$})
-        match[1..3] if match
+      # file_name => [ path, full_name, type ]
+      def split_file_name(file_name)
+        prefix = @force_prefix || "/lib"
+        type   = @force_type   || ".*"
+        match = file_name.match(%r{.*#{prefix}/(plugins/(#{@group}/(#{type})/[^/]*)\.rb)$})
+        match[-3..-1] if match
       end
 
     end

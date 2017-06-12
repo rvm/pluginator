@@ -18,6 +18,7 @@ along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 require "pluginator/extendable_autodetect"
+require "pluginator/rubygems_fixes"
 require "pluginator/version"
 
 # A simple plugin system based on Gem.find_files
@@ -27,6 +28,9 @@ module Pluginator
   # @param group   [String] name of plugins group
   # @param options [Hash]   options to pass to creating Pluginator instance
   # @option type   [String] name of type to load
+  # @option prefix [String] a prefix for finding plugins if forcing,
+  #                         by default only `/lib` is checked,
+  #                         regexp notation is allowed, for example `/(lib|local_lib)`
   # @option extend [Array<Symbol>|Symbol] list of extension to extend into pluginator instance
   # @return [Pluginator::ExtendableAutodetect] instance of Pluginator
   def self.find(group, options={})

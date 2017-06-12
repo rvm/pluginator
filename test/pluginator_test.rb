@@ -53,7 +53,7 @@ describe Pluginator do
   end
 
   it :loads_plugins_from_load_path do
-    pluginator = Pluginator.find("load_path")
+    pluginator = Pluginator.find("load_path", :prefix => "/(lib|load_path)")
     pluginator.types.must_include("stats")
     pluginator["stats"].map(&:to_s).must_equal(["LoadPath::Stats::Max"])
   end

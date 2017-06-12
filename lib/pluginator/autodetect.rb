@@ -38,9 +38,14 @@ module Pluginator
     # @param group   [String] name of the plugins group
     # @param options [Hash]   options to pass to creating Pluginator instance
     # @option type   [String] name of the plugin type
+    # @option prefix [String] a prefix for finding plugins if forcing,
+    #                         by default only `/lib` is checked,
+    #                         regexp notation is allowed, for example `/(lib|local_lib)`
+
     def initialize(group, options={})
       super(group)
-      @force_type = options[:type]
+      @force_prefix = options[:prefix]
+      @force_type   = options[:type]
       refresh
     end
 
@@ -50,7 +55,7 @@ module Pluginator
     #
     # Use it after gem list change, for example after `Gem.install("new_gem")`
     def refresh
-      plugin_lists = FormattedFinder.new(@group, @force_type)
+      plugin_lists = FormattedFinder.new(@force_prefix, @group, @force_type)
       register_plugins(plugin_lists.loaded_plugins_path)
       load_plugins(plugin_lists.load_path_plugins_paths)
       activate_plugins(plugin_lists.gem_plugins_paths)

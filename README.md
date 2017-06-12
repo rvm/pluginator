@@ -46,14 +46,15 @@ types = rvm2plugins.types
 
 ```ruby
 Pluginator.find("<group>") => Pluginator object
-plugins = Pluginator.find("<group>", type: "<type>", extends: %i[<extensions>])
+plugins = Pluginator.find("<group>", type: "<type>", prefix: "/(lib|local_lib)", extends: %i[<extensions>])
 plugins["<type>"] => Array of plugins
 plugins.type      => Array of plugins for type defined with `type: "<type>"`
 plugins.types     => Array of types
 ```
 
 - `"<group>"` - Load plugins for given group.
-- `type: "<type>"` - Load plugins only of given type, makes `type` method accessible.
+- `type: "<type>"` - Load plugins only of given type, optional, makes `type` method accessible.
+- `prefix: "/prefix"` - Load plugins only from this paths, optional, default `/lib`.
 - `extends: %i[<extensions>]` - Extend pluginator with given extensions.
 
 ## Extensions
