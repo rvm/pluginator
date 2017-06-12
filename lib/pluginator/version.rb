@@ -19,5 +19,5 @@ along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 
 module Pluginator
   # Version of Pluginator
-  VERSION = "1.4.1".freeze
+  VERSION = "1.5.0".freeze
 end

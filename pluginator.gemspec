@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
   s.license = "LGPL v3"
   s.files   = Dir["lib/**/*.rb", "*.md", "COPYING*"]
   s.required_ruby_version = ">= 1.9.3"
+  s.required_rubygems_version = ">= 2.0.0"
   s.add_development_dependency("rake")
   s.add_development_dependency("rubocop") if RUBY_VERSION>="2.0.0"
   s.add_development_dependency("minitest")

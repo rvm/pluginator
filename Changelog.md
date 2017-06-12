@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.0
+date: 2017-06-12
+
+- add /lib prefix check, it can be changed with `prefix: "/(lib|local_lib)"`
+- allow dashes in directory names for plugin paths
+- fix older rubygems compatibility
+- updated ruby and rubygems versions
+
 ## 1.4.1
 date: 2017-05-23
 
