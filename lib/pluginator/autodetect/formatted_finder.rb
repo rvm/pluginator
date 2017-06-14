@@ -27,7 +27,7 @@ module Pluginator
     class FormattedFinder < Finder
 
       # Reformat plugin lists
-      def initialize(force_prefix, group, force_type)
+      def initialize(force_prefix, group, force_type, plugins_dir_name)
         super
         map_loaded_plugins
         map_gem_plugins
