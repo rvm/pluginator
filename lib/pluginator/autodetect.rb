@@ -41,11 +41,12 @@ module Pluginator
     # @option prefix [String] a prefix for finding plugins if forcing,
     #                         by default only `/lib` is checked,
     #                         regexp notation is allowed, for example `/(lib|local_lib)`
-
+    # @option plugins_dir_name [String] the top level directory name to use when looking for plugins
     def initialize(group, options={})
       super(group)
       @force_prefix = options[:prefix]
       @force_type   = options[:type]
+      @plugins_dir_name = options[:plugins_dir_name] || 'plugins'
       refresh
     end
 
@@ -55,7 +56,7 @@ module Pluginator
     #
     # Use it after gem list change, for example after `Gem.install("new_gem")`
     def refresh
-      plugin_lists = FormattedFinder.new(@force_prefix, @group, @force_type)
+      plugin_lists = FormattedFinder.new(@force_prefix, @group, @force_type, @plugins_dir_name)
       register_plugins(plugin_lists.loaded_plugins_path)
       load_plugins(plugin_lists.load_path_plugins_paths)
       activate_plugins(plugin_lists.gem_plugins_paths)

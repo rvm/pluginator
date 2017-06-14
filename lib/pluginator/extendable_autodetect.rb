@@ -38,8 +38,9 @@ module Pluginator
     # @param options  [Hash]   options to pass to creating Pluginator instance
     # @option type    [String] name of type to load
     # @option extends [Array<Symbol>|Symbol] list of extension to extend into pluginator instance
+    # @option plugins_dir_name [String] the top level directory name to use when looking for plugins
     def initialize(group, options={})
-      super(group, options)
+      super
       extend_plugins(options[:extends] || [])
     end
 

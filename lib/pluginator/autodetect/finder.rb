@@ -23,7 +23,8 @@ module Pluginator
     # Find plugins
     class Finder
 
-      attr_reader :loaded_plugins_path, :load_path_plugins_paths, :gem_plugins_paths
+      attr_reader :loaded_plugins_path, :load_path_plugins_paths, :force_prefix,
+                  :gem_plugins_paths, :plugins_dir_name, :group, :force_type
 
       # Automatically load plugins for given group (and type)
       #
@@ -32,10 +33,12 @@ module Pluginator
       #                              regexp notation is allowed, for example `/[lib|]`
       # @param group        [String] name of the plugins group
       # @param force_type   [String] name of the plugin type if forcing
-      def initialize(force_prefix, group, force_type)
+      # @option plugins_dir_name [String] the top level directory name to use when looking for plugins
+      def initialize(force_prefix, group, force_type, plugins_dir_name = 'plugins')
         @force_prefix = force_prefix
         @group        = group
         @force_type   = force_type
+        @plugins_dir_name = plugins_dir_name || 'plugins'
         @pattern      = file_name_pattern
         find_paths
       end
@@ -44,7 +47,7 @@ module Pluginator
 
       # group => pattern
       def file_name_pattern
-        "plugins/#{@group}/#{@force_type || "**"}/*.rb"
+        File.join(plugins_dir_name, group, (force_type || '**'), '*.rb' )
       end
 
       def find_paths
@@ -79,9 +82,9 @@ module Pluginator
 
       # file_name => [ path, full_name, type ]
       def split_file_name(file_name)
-        prefix = @force_prefix || "/lib"
-        type   = @force_type   || ".*"
-        match = file_name.match(%r{.*#{prefix}/(plugins/(#{@group}/(#{type})/[^/]*)\.rb)$})
+        prefix = force_prefix || "/lib"
+        type   = force_type   || ".*"
+        match = file_name.match(%r{.*#{prefix}/(#{plugins_dir_name}/(#{group}/(#{type})/[^/]*)\.rb)$})
         match[-3..-1] if match
       end
 
