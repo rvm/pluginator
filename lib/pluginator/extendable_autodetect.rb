@@ -34,11 +34,11 @@ module Pluginator
     # Automatically load plugins for given group (and type)
     # Extend instance with extensions if given.
     #
-    # @param group    [String] name of the plugins group
-    # @param options  [Hash]   options to pass to creating Pluginator instance
-    # @option type    [String] name of type to load
-    # @option extends [Array<Symbol>|Symbol] list of extension to extend into pluginator instance
-    # @option plugins_dir_name [String] the top level directory name to use when looking for plugins
+    # @param group     [String] name of the plugins group
+    # @param options   [Hash]   options to pass to creating Pluginator instance
+    # @option type     [String] name of type to load
+    # @option extends  [Array<Symbol>|Symbol] list of extension to extend into pluginator instance
+    # @option base_dir [String] the top level directory name to use when looking for plugins
     def initialize(group, options={})
       super
       extend_plugins(options[:extends] || [])

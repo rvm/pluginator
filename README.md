@@ -56,7 +56,7 @@ plugins.types     => Array of types
 - `type: "<type>"` - Load plugins only of given type, optional, makes `type` method accessible.
 - `prefix: "/prefix"` - Load plugins only from this paths, optional, default `/lib`.
 - `extends: %i[<extensions>]` - Extend pluginator with given extensions.
-- `plugins_dir_name: 'plugins'` - the top level directory name to use when looking for plugins, defaults to "plugins"
+- `base_dir: 'plugins'` - the top level directory name to use when looking for plugins, defaults to "plugins"
 
 ## Extensions
 

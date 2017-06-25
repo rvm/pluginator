@@ -1,5 +1,5 @@
 =begin
-Copyright 2013 Michal Papis <mpapis@gmail.com>
+Copyright 2017 Michal Papis <mpapis@gmail.com>
 
 This file is part of pluginator.
 
@@ -17,9 +17,12 @@ You should have received a copy of the GNU Lesser General Public License
 along with pluginator.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-class Something::Nested::Structure::Test
-
-  def self.action
-    42
+module Test
+  module Kitchen
+    class Sink
+      def self.type
+        "sink"
+      end
+    end
   end
 end

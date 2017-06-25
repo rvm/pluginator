@@ -23,22 +23,21 @@ module Pluginator
     # Find plugins
     class Finder
 
-      attr_reader :loaded_plugins_path, :load_path_plugins_paths, :force_prefix,
-                  :gem_plugins_paths, :plugins_dir_name, :group, :force_type
+      attr_reader :loaded_plugins_path, :load_path_plugins_paths, :gem_plugins_paths
 
       # Automatically load plugins for given group (and type)
       #
       # @param force_prefix [String] a prefix for finding plugins if forcing,
       #                              by default only `/lib` is checked,
       #                              regexp notation is allowed, for example `/[lib|]`
+      # @param base_dir     [String] the top level directory name to use when looking for plugins
       # @param group        [String] name of the plugins group
       # @param force_type   [String] name of the plugin type if forcing
-      # @option plugins_dir_name [String] the top level directory name to use when looking for plugins
-      def initialize(force_prefix, group, force_type, plugins_dir_name = 'plugins')
+      def initialize(force_prefix, base_dir, group, force_type)
         @force_prefix = force_prefix
+        @base_dir     = base_dir || "plugins"
         @group        = group
         @force_type   = force_type
-        @plugins_dir_name = plugins_dir_name || 'plugins'
         @pattern      = file_name_pattern
         find_paths
       end
@@ -47,7 +46,7 @@ module Pluginator
 
       # group => pattern
       def file_name_pattern
-        File.join(plugins_dir_name, group, (force_type || '**'), '*.rb' )
+        File.join(@base_dir, @group, (@force_type || "**"), "*.rb" )
       end
 
       def find_paths
@@ -82,9 +81,9 @@ module Pluginator
 
       # file_name => [ path, full_name, type ]
       def split_file_name(file_name)
-        prefix = force_prefix || "/lib"
-        type   = force_type   || ".*"
-        match = file_name.match(%r{.*#{prefix}/(#{plugins_dir_name}/(#{group}/(#{type})/[^/]*)\.rb)$})
+        prefix = @force_prefix || "/lib"
+        type   = @force_type   || ".*"
+        match  = file_name.match(%r{.*#{prefix}/(#{@base_dir}/(#{@group}/(#{type})/[^/]*)\.rb)$})
         match[-3..-1] if match
       end
 
