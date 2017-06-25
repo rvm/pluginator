@@ -66,6 +66,9 @@ then
 
   Coveralls.noisy = true unless ENV["CI"]
 end
+
+# load everything
+require "pluginator"
 # Ensure all files are counted in
 Dir[lib+"/**/*.rb"].each{|file| require file }
 
