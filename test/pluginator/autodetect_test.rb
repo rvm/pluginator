@@ -40,13 +40,19 @@ def gem_files(*paths)
 end
 
 describe Pluginator::Autodetect do
-  before do
-    @math_parsed = [
+  let(:math_files) do
+    gem_files(math_parsed.map(&:first))
+  end
+
+  let(:math_parsed) do
+    [
       ["plugins/something/math/increase.rb", "something/math/increase", "math"],
       ["plugins/something/math/decrease.rb", "something/math/decrease", "math"]
     ]
-    @math_files = gem_files(@math_parsed.map(&:first))
-    @all_files = gem_files(
+  end
+
+  let(:all_files) do
+    gem_files(
       "plugins/something/math/increase.rb", "plugins/something/math/decrease.rb",
       "plugins/something/nested/structure/test.rb", "plugins/something/stats/max.rb"
     )
@@ -62,6 +68,15 @@ describe Pluginator::Autodetect do
     plugins.must_include("Something::Math::Increase")
     plugins.must_include("Something::Math::Decrease")
     plugins.wont_include("Something::Math::Add")
+  end
+
+  it :loads_plugins_automatically_from_another_base do
+    pluginator = Pluginator::Autodetect.new("test", :base_dir => 'kitchen')
+    pluginator.types.must_include("kitchen")
+    pluginator.types.size.must_equal(1)
+    plugins = pluginator["kitchen"].map(&:to_s)
+    plugins.size.must_equal(1)
+    plugins.must_include("Test::Kitchen::Sink")
   end
 
   it :loads_plugins_automatically_for_group_type do

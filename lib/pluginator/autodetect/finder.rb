@@ -30,10 +30,12 @@ module Pluginator
       # @param force_prefix [String] a prefix for finding plugins if forcing,
       #                              by default only `/lib` is checked,
       #                              regexp notation is allowed, for example `/[lib|]`
+      # @param base_dir     [String] the top level directory name to use when looking for plugins
       # @param group        [String] name of the plugins group
       # @param force_type   [String] name of the plugin type if forcing
-      def initialize(force_prefix, group, force_type)
+      def initialize(force_prefix, base_dir, group, force_type)
         @force_prefix = force_prefix
+        @base_dir     = base_dir || "plugins"
         @group        = group
         @force_type   = force_type
         @pattern      = file_name_pattern
@@ -44,7 +46,7 @@ module Pluginator
 
       # group => pattern
       def file_name_pattern
-        "plugins/#{@group}/#{@force_type || "**"}/*.rb"
+        File.join(@base_dir, @group, (@force_type || "**"), "*.rb" )
       end
 
       def find_paths
@@ -81,7 +83,7 @@ module Pluginator
       def split_file_name(file_name)
         prefix = @force_prefix || "/lib"
         type   = @force_type   || ".*"
-        match = file_name.match(%r{.*#{prefix}/(plugins/(#{@group}/(#{type})/[^/]*)\.rb)$})
+        match  = file_name.match(%r{.*#{prefix}/(#{@base_dir}/(#{@group}/(#{type})/[^/]*)\.rb)$})
         match[-3..-1] if match
       end
 
